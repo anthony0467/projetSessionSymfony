@@ -47,7 +47,7 @@
                         <td><a href="">{{ session.nomSession }}</a></td>
                         <td>{{session.dateDebut | date('d/m/Y')}}</td>
                         <td>{{session.dateFin | date('d/m/Y')}}</td>
-                        <td>{{ session.nbPlace}}</td>
+                        <td>/{{ session.nbPlace}}</td>
 
                 
                         {% if is_granted('ROLE_ADMIN') %}
@@ -91,7 +91,7 @@
                         <td><a href="">{{ session.nomSession }}</a></td>
                         <td>{{session.dateDebut | date('d/m/Y')}}</td>
                         <td>{{session.dateFin | date('d/m/Y')}}</td>
-                        <td>{{ session.nbPlace}}</td>
+                        <td>/{{ session.nbPlace}}</td>
 
                 
                         {% if is_granted('ROLE_ADMIN') %}
@@ -135,7 +135,7 @@
                         <td><a href="">{{ session.nomSession }}</a></td>
                         <td>{{session.dateDebut | date('d/m/Y')}}</td>
                         <td>{{session.dateFin | date('d/m/Y')}}</td>
-                        <td>{{ session.nbPlace}}</td>
+                        <td>/{{ session.nbPlace}}</td>
 
                 
                         {% if is_granted('ROLE_ADMIN') %}

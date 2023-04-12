@@ -26,6 +26,7 @@ class Session
     private ?\DateTimeInterface $dateDebut = null;
 
     #[ORM\Column]
+    
     private ?int $nbPlace = null;
 
   

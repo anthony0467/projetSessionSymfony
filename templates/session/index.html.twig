@@ -7,7 +7,7 @@
 <h1>Liste des sessions</h1>
 
 {% if is_granted('ROLE_ADMIN') %}
-    <a href="">Ajouter une session</a>    
+    <a href="{{path('add_session')}}">Ajouter une session</a>    
 {% endif %}
 
         <h2>Sessions en cours</h2>
@@ -35,12 +35,16 @@
                 
                     {% for session in sessionsActuel %}
                     <tr>
-                        <td>complet</td>
+                        <td>
+                        {% if session.stagiaires.count == session.nbPlace %}
+                            Complet
+                        {% endif %}
+                    </td>
                         <td>{{ session.formation.nomFormation }}</td>        
                         <td><a href="">{{ session.nomSession }}</a></td>
                         <td>{{session.dateDebut | date('d/m/Y')}}</td>
                         <td>{{session.dateFin | date('d/m/Y')}}</td>
-                        <td>{{ session.nbPlace}}</td>
+                        <td>{{ session.stagiaires.count }}/{{ session.nbPlace}}</td>
 
                 
                         {% if is_granted('ROLE_ADMIN') %}
@@ -80,12 +84,16 @@
                 
                 {% for session in sessionsFutur %}
                 <tr>
-                    <td>complet</td>
+                    <td>
+                        {% if session.stagiaires.count == session.nbPlace %}
+                        Complet
+                    {% endif %}
+                    </td>
                     <td>{{ session.formation.nomFormation }}</td>        
                     <td><a href="">{{ session.nomSession }}</a></td>
                     <td>{{session.dateDebut | date('d/m/Y')}}</td>
                     <td>{{session.dateFin | date('d/m/Y')}}</td>
-                    <td>{{ session.nbPlace}}</td>
+                    <td>{{ session.stagiaires.count }}/{{ session.nbPlace}}</td>
 
             
                     {% if is_granted('ROLE_ADMIN') %}
@@ -124,12 +132,17 @@
                 
                     {% for session in sessionsPassees %}
                     <tr>
-                        <td>complet</td>
+                        
+                        <td>
+                            {% if session.stagiaires.count == session.nbPlace %}
+                            Complet
+                        {% endif %}
+                        </td>
                         <td>{{ session.formation.nomFormation }}</td>        
                         <td><a href="">{{ session.nomSession }}</a></td>
                         <td>{{session.dateDebut | date('d/m/Y')}}</td>
                         <td>{{session.dateFin | date('d/m/Y')}}</td>
-                        <td>{{ session.nbPlace}}</td>
+                        <td>{{ session.stagiaires.count }}/{{ session.nbPlace}}</td>
 
                 
                         {% if is_granted('ROLE_ADMIN') %}

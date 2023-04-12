@@ -24,8 +24,8 @@ class StagiaireType extends AbstractType
             ->add('telephone', TextType::class)
             ->add('adresse', TextType::class)
             ->add('ville', TextType::class)
-            //->add('sessions')
-            ->add('submit', SubmitType::class)
+          //  ->add('sessions')
+            ->add('Valider', SubmitType::class)
         ;
     }
 
