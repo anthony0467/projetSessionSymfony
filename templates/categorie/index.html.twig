@@ -23,8 +23,9 @@
     </thead>
     <tbody>
             {% for categorie in categories %}
+            
             <tr>
-                <td><a href="">{{ categorie.nomCategorie }}</a></td>
+                <td><a href="{{path('show_categorie', {'id': categorie.id })}}">{{ categorie.nomCategorie }}</a></td>
                
                 {% if is_granted('ROLE_ADMIN') %}
                 <td><a href="{{path('edit_categorie', {'id': categorie.id })}}">modifier</a></td> 

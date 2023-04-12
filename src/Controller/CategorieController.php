@@ -50,7 +50,7 @@ class CategorieController extends AbstractController
 
     }
 
-    #[Route('/categorie/{id}', name: 'delete_categorie')] // supprimer une categorie
+    #[Route('/categorie/delete/{id}', name: 'delete_categorie')] // supprimer une categorie
     public function delete(ManagerRegistry $doctrine, Categorie $categorie): Response{
 
         $entityManager = $doctrine->getManager();
@@ -59,4 +59,15 @@ class CategorieController extends AbstractController
 
         return $this->redirectToRoute('app_categorie');
     }
+
+    #[Route('/categorie/show/{id}', name: 'show_categorie')] // afficher modules par categorie
+    public function show(Categorie $categorie): Response
+    {
+        $modules = $categorie->getModules(); // récupère les modules
+        return $this->render('categorie/show.html.twig', [
+            'categorie' => $categorie,
+            'modules' => $modules,
+        ]);
+    }
+
 }

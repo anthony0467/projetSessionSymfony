@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste modules{% endblock %}
+
+{% block body %}
+
+<h1>Liste des modules</h1>
+
+{% if is_granted('ROLE_ADMIN') %}
+    <a href="{{path('add_formation')}}">Ajouter une formation</a>    
+{% endif %}
+
+<table>
+    <thead>
+        <tr>
+            <th >Nom du module</th>
+            
+           
+            {% if is_granted('ROLE_ADMIN') %}
+                <th>Editer</th>   
+                <th>Supprimer</th>
+            {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+            {% for module in modules %}
+            <tr>
+                <td><a href="">{{ module }}</a></td>
+                
+        
+                {% if is_granted('ROLE_ADMIN') %}
+                <td><a href="">modifier</a></td> 
+                <td><a href="">supprimer</a></td>  
+                {% endif %}
+                
+            </tr>
+            {% endfor %}
+
+
+            
+      
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}modules par catégorie{% endblock %}
+
+{% block body %}
+<h1>{{ categorie.nomCategorie}}</h1>
+
+
+<table>
+    <thead>
+        <tr>
+            <th>Nom du module</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for module in modules %}
+            <tr>
+                <td>{{ module.nomModule }}</td>
+             
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+
+
+{% endblock %}

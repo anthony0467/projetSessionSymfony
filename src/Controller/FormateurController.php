@@ -51,7 +51,7 @@ class FormateurController extends AbstractController
     }
 
 
-    #[Route('/formateur/{id}', name: 'delete_formateur')] // supprimer le formateur
+    #[Route('/formateur/delete/{id}', name: 'delete_formateur')] // supprimer le formateur
     public function delete(ManagerRegistry $doctrine, Formateur $formateur): Response{
 
         $entityManager = $doctrine->getManager();
@@ -62,7 +62,7 @@ class FormateurController extends AbstractController
     }
 
 
-    #[Route('/formateur/{id}', name: 'show_formateur')] // fiche detaillé formateur
+    #[Route('/formateur/show/{id}', name: 'show_formateur')] // fiche detaillé formateur
     public function show(Formateur $formateur): Response{
 
         return $this->render('formateur/show.html.twig', [

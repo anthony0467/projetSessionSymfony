@@ -13,4 +13,142 @@
 {% endif %}
 
 
+
+<h2>Liste des sessions</h2>
+
+
+        <h2>Sessions en cours</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th >Statut</th>
+                    <th >Formation</th>
+                    <th >Session</th>
+                    <th >Date début</th>
+                    <th >Date fin</th>
+                    <th >Inscrit</th>
+                    
+                
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <th>Editer</th>   
+                        <th>Supprimer</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% if sessionsActuel is defined %}
+                    
+                
+                    {% for session in sessionsActuel %}
+                    <tr>
+                        <td>complet</td>
+                        <td>{{ session.formation.nomFormation }}</td>
+                        <td><a href="">{{ session.nomSession }}</a></td>
+                        <td>{{session.dateDebut | date('d/m/Y')}}</td>
+                        <td>{{session.dateFin | date('d/m/Y')}}</td>
+                        <td>{{ session.nbPlace}}</td>
+
+                
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <td><a href="">modifier</a></td> 
+                        <td><a href="">supprimer</a></td>  
+                        {% endif %}
+                        
+                    </tr>
+                    {% endfor %}  
+                    {% endif %} 
+            </tbody>
+        </table>
+
+        <h2>Sessions à venir</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th >Statut</th>
+                    <th >Formation</th>
+                    <th >Session</th>
+                    <th >Date début</th>
+                    <th >Date fin</th>
+                    <th >Inscrit</th>
+                    
+                
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <th>Editer</th>   
+                        <th>Supprimer</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% if sessionsFutur is defined %}
+                    
+                
+                    {% for session in sessionsFutur %}
+                    <tr>
+                        <td>complet</td>
+                        <td>{{ session.formation.nomFormation }}</td>
+                        <td><a href="">{{ session.nomSession }}</a></td>
+                        <td>{{session.dateDebut | date('d/m/Y')}}</td>
+                        <td>{{session.dateFin | date('d/m/Y')}}</td>
+                        <td>{{ session.nbPlace}}</td>
+
+                
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <td><a href="">modifier</a></td> 
+                        <td><a href="">supprimer</a></td>  
+                        {% endif %}
+                        
+                    </tr>
+                    {% endfor %}  
+                    {% endif %} 
+            </tbody>
+        </table>
+
+        <h2>Sessions passées</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th >Statut</th>
+                    <th >Formation</th>
+                    <th >Session</th>
+                    <th >Date début</th>
+                    <th >Date fin</th>
+                    <th >Inscrit</th>
+                    
+                
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <th>Editer</th>   
+                        <th>Supprimer</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% if sessionsPassees is defined %}
+                    
+                
+                    {% for session in sessionsPassees %}
+                    <tr>
+                        <td>complet</td>
+                        <td>{{ session.formation.nomFormation }}</td>
+                        <td><a href="">{{ session.nomSession }}</a></td>
+                        <td>{{session.dateDebut | date('d/m/Y')}}</td>
+                        <td>{{session.dateFin | date('d/m/Y')}}</td>
+                        <td>{{ session.nbPlace}}</td>
+
+                
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <td><a href="">modifier</a></td> 
+                        <td><a href="">supprimer</a></td>  
+                        {% endif %}
+                        
+                    </tr>
+                    {% endfor %}  
+                    {% endif %} 
+            </tbody>
+        </table>
+
+
+
 {% endblock %}
