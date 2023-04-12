@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste formateurs{% endblock %}
+
+{% block body %}
+
+<h1>Liste des Formateurs</h1>
+
+{% if is_granted('ROLE_ADMIN') %}
+    <a href="{{path('add_formateur')}}">Ajouter un formateur</a>    
+{% endif %}
+
+<table>
+    <thead>
+        <tr>
+            <th >Nom</th>
+            <th >Prénom</th>
+          
+            <th>Email</th>
+           
+            {% if is_granted('ROLE_ADMIN') %}
+                <th>Editer</th>   
+                <th>Supprimer</th>
+            {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+            {% for formateur in formateurs %}
+            <tr>
+                <td><a href="{{path('show_formateur', { 'id': formateur.id })}}">{{ formateur.nomFormateur }}</a></td>
+                <td><a href="{{path('show_formateur', { 'id': formateur.id })}}">{{ formateur.prenomFormateur }}</a></td>
+                <td><a>{{ formateur.emailFormateur }}</a></td>
+                {% if is_granted('ROLE_ADMIN') %}
+                <td><a href="{{path('edit_formateur', {'id': formateur.id })}}">modifier</a></td> 
+                <td><a href="{{path('delete_formateur', {'id': formateur.id })}}">supprimer</a></td>  
+                {% endif %}
+                
+            </tr>
+            {% endfor %}
+
+
+            
+      
+    </tbody>
+</table>
+{% endblock %}

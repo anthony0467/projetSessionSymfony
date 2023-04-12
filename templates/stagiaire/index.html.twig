@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des stagiaires{% endblock %}
+
+{% block body %}
+<h1>Liste des stagiaires</h1>
+
+{% if is_granted('ROLE_ADMIN') %}
+    <a href="{{path('add_stagiaire')}}">Ajouter un stagiaire</a>    
+{% endif %}
+
+
+<table>
+    <thead>
+        <tr>
+            <th >Nom</th>
+            <th >Prénom</th>
+            <th>Date de naissance</th>
+            <th>Email</th>
+            <th>adresse</th>
+            <th>Ville</th>
+            <th>Téléphone</th>
+            {% if is_granted('ROLE_ADMIN') %}
+                <th>Editer</th>
+                <th>Supprimer</th>   
+            {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+            {% for stagiaire in stagiaires %}
+            <tr>
+                <td><a href="{{ path('show_stagiaire',{'id':stagiaire.id})}}">{{ stagiaire.nomStagiaire }}</a></td>
+                <td><a href="{{ path('show_stagiaire',{'id':stagiaire.id})}}">{{ stagiaire.prenomStagiaire }}</a></td>
+                <td><a>{{ stagiaire.dateNaissance |date('d/m/Y') }}</a></td>
+                <td><a>{{ stagiaire.emailStagiaire }}</a></td>
+                <td><a>{{ stagiaire.adresse }}</a></td>
+                <td><a>{{ stagiaire.ville }}</a></td>
+                <td><a>{{ stagiaire.telephone }}</a></td>
+                {% if is_granted('ROLE_ADMIN') %}
+                <td><a href="{{path('edit_stagiaire', {'id': stagiaire.id })}}">modifier</a></td>
+                <td><a href="{{path('delete_stagiaire', {'id': stagiaire.id })}}">supprimer</a></td>     
+                {% endif %}
+                
+            </tr>
+            {% endfor %}
+
+
+            
+      
+    </tbody>
+</table>
+{% endblock %}

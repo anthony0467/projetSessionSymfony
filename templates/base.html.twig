@@ -14,6 +14,56 @@
         {% endblock %}
     </head>
     <body>
+        <nav>
+            <ul>
+                <li>
+                    <a href="{{path('app_home')}}">Accueil</a>
+                </li>
+
+                <li>
+                    <a href="">Formation</a>
+                </li>
+
+                <li>
+                    <a href="">Sessions</a>
+                </li>
+
+                <li>
+                    <a href="{{path('app_stagiaire')}}">Stagiaires</a>
+                </li>
+
+                <li>
+                    <a href="{{path('app_formateur')}}">Formateurs</a>
+                </li>
+
+                <li>
+                    <a href="">Catégorie</a>
+                </li>
+            
+        
+                {% if app.user %} <!--Si utilisateur connecté-->
+                <li>
+                    <a href="{{ path('app_logout')}}">Déconnexion</a>
+                </li>
+
+                <li>
+                    <a href="">Mon profil</a>
+                </li>
+                {% else %}
+                <li>
+                    <a href="{{ path('app_login')}}">Connexion</a>
+                </li>
+                {% endif %}
+
+                {% if is_granted('ROLE_ADMIN') %} <!--Si utilisateur est admin -->
+                <li>
+                    <a href="">Administration</a>
+                </li>
+                    
+                {% endif %}
+            </ul>
+    </nav>
+
         {% block body %}{% endblock %}
     </body>
 </html>
