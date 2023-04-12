@@ -51,7 +51,7 @@ class FormateurController extends AbstractController
     }
 
 
-    #[Route('/formateur/{id}', name: 'delete_formateur')] // fiche detaillé stagiaire
+    #[Route('/formateur/{id}', name: 'delete_formateur')] // supprimer le formateur
     public function delete(ManagerRegistry $doctrine, Formateur $formateur): Response{
 
         $entityManager = $doctrine->getManager();

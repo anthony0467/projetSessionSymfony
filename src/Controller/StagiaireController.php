@@ -51,7 +51,7 @@ class StagiaireController extends AbstractController
     }
 
     
-    #[Route('/stagiaire/{id}', name: 'delete_stagiaire')] // fiche detaillé stagiaire
+    #[Route('/stagiaire/{id}', name: 'delete_stagiaire')] // supprimer le stagiaire
     public function delete(ManagerRegistry $doctrine, Stagiaire $stagiaire): Response{
 
         $entityManager = $doctrine->getManager();
