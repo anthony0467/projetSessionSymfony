@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un formateur{% endblock %}
+
+{% block body %}
+{% if edit %}
+    <h1>Modifier le nom de la formation</h1>
+    {% else %}
+    <h1>Ajouter une formation</h1>
+{% endif %}
+
+
+{% if is_granted('ROLE_ADMIN') %}
+            
+    {{ form(formAddFormation)}}
+
+{% else %}
+
+    <p>Vous n'avez pas les droits pour accéder à cette page.</p>
+
+{% endif %}
+
+
+
+
+{% endblock %}
