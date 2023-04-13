@@ -37,7 +37,7 @@
             {% for stagiaire in session.stagiaires %}
             <tr>
                 <td><a href="{{ path('show_stagiaire',{'id':stagiaire.id})}}">{{ stagiaire }}</a></td>
-                <td><a href="">Désinscrire</a></td>   
+                <td><a href="{{path('remove_sessionStagiaire', {'id': stagiaire.id, 'idSession': session.id })}}">Désinscrire</a></td>   
                 
                 
             </tr>
@@ -137,28 +137,21 @@
         </tr>
     </thead>
     <tbody>
-         {{ dump(allProgramme) }}
-            {% for programme  in allProgramme %}
-                {% if programme not in session.programmes %}
-                    
-                {% endif %}
-               <tr>
-                    <td>{{ programme.module}}</td>
-                    <td><a href="">{{ programme.module.categorie.nomCategorie }}</a></td>
-                    <td>{{ programme.nbJourModule }} jours</td>
+        {% set modules_session = session.programmes|map(p => p.module) %} 
+        {% for programme in modules %}
+            {% if programme not in modules_session %}
+                <tr>
+                    <td>{{ programme.nomModule }}</td>
+                    <td><a href="">{{ programme.categorie.nomCategorie }}</a></td>
+                    <td>jours</td>
                     {% if is_granted('ROLE_ADMIN') %}
-                    <td><a href="">Programmer</a></td>  
-                {% endif %} 
+                        <td><a href="">Programmer</a></td>  
+                    {% endif %} 
                 </tr>
-                {% endfor %}
-
-        
-           
-
-            
-      
+            {% endif %}
+        {% endfor %}
     </tbody>
-</table
+</table>
 
 
 {% endblock %}

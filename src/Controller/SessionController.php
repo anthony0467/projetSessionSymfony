@@ -89,6 +89,22 @@ class SessionController extends AbstractController
 
     }
 
+    #[Route('/session/{idSession}/{id}/remove', name: 'remove_sessionStagiaire')] // enlever un stagiaire d'une session
+    public function remove(ManagerRegistry $doctrine, Stagiaire $stagiaire , $idSession): Response{
+
+            $entityManager = $doctrine->getManager(); // on récupère les ressources
+
+            $session = $doctrine->getRepository(Session::class)->find($idSession);
+
+            // supprimer le stagiaire de la session
+            $session->removeStagiaire($stagiaire);
+
+            // enregistrer les modifications dans la base de données
+            $entityManager->flush();
+                
+            return $this->redirectToRoute('show_session', ['id' => $idSession]);
+    }
+
 
     #[Route('/session/show/{id}', name: 'show_session')] // fiche detaillé session
     public function show(ManagerRegistry  $doctrine, Session $session): Response{
@@ -106,6 +122,8 @@ class SessionController extends AbstractController
             
         ]);
     }
+
+
 
        
 
