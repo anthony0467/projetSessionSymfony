@@ -67,7 +67,11 @@
             
             <tr>
                 <td><a href="{{ path('show_stagiaire',{'id':stagiaire.id})}}">{{ stagiaire }}</a></td>
-                <td><a href="">Inscrire</a></td>   
+                {% if  session.nbPlace > session.getStagiaires | length  %}
+                    
+                    <td><a href="{{path('inscrire_sessionStagiaire', {'id': stagiaire.id, 'idSession': session.id })}}">Inscrire</a></td>   
+
+                {% endif %}
                 
                 
             </tr>
@@ -101,7 +105,7 @@
                     <td><a href="">{{ programme.module.categorie.nomCategorie }}</a></td>
                     <td>{{ programme.nbJourModule }} jours</td>
                     {% if is_granted('ROLE_ADMIN') %}
-                    <td><a href="">Déprogrammer</a></td>  
+                    <td><a href="{{path('remove_sessionProgramme', {'id': programme.id, 'idSession': session.id })}}">Déprogrammer</a></td>  
                 {% endif %} 
                 </tr>
                 {% endfor %}

@@ -105,6 +105,39 @@ class SessionController extends AbstractController
             return $this->redirectToRoute('show_session', ['id' => $idSession]);
     }
 
+    #[Route('/session/{idSession}/{id}/inscrire', name: 'inscrire_sessionStagiaire')] // ajouter un stagiaire a une session
+    public function inscrire(ManagerRegistry $doctrine, Stagiaire $stagiaire , $idSession): Response{
+
+            $entityManager = $doctrine->getManager(); // on récupère les ressources
+
+            $session = $doctrine->getRepository(Session::class)->find($idSession);
+
+            // supprimer le stagiaire de la session
+            $session->addStagiaire($stagiaire);
+
+            // enregistrer les modifications dans la base de données
+            $entityManager->flush();
+                
+            return $this->redirectToRoute('show_session', ['id' => $idSession]);
+    }
+
+
+    #[Route('/session/{idSession}/{id}/removeProgramme', name: 'remove_sessionProgramme')] // enlever un stagiaire d'une session
+    public function removeProgramme(ManagerRegistry $doctrine, Programme $programme , $idSession): Response{
+
+            $entityManager = $doctrine->getManager(); // on récupère les ressources
+
+            $session = $doctrine->getRepository(Session::class)->find($idSession);
+
+            // supprimer le stagiaire de la session
+            $session->removeProgramme($programme);
+
+            // enregistrer les modifications dans la base de données
+            $entityManager->flush();
+                
+            return $this->redirectToRoute('show_session', ['id' => $idSession]);
+    }
+
 
     #[Route('/session/show/{id}', name: 'show_session')] // fiche detaillé session
     public function show(ManagerRegistry  $doctrine, Session $session): Response{
