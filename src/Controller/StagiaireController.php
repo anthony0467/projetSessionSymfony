@@ -26,7 +26,7 @@ class StagiaireController extends AbstractController
     #[Route('/stagiaire/add', name: 'add_stagiaire')] // ajouter un stagiaire
     #[Route('/stagiaire/{id}/edit', name: 'edit_stagiaire')] // modifier un stagiaire
     public function add(ManagerRegistry $doctrine, Stagiaire $stagiaire = null, Request $request): Response{
-
+        
         if(!$stagiaire){ // edit
             $stagiaire = new Stagiaire();
         } //add
@@ -34,9 +34,19 @@ class StagiaireController extends AbstractController
         $form = $this->createForm(StagiaireType::class, $stagiaire);
         $form->handleRequest($request); // analyse the request
 
+        //$nbPlace = $stagiaire->getSessions()->count();  
+    
+       
         if($form->isSubmitted() && $form->isValid()){ // valid respecter les contraintes
             $stagiaire = $form->getData();
             $entityManager = $doctrine->getManager(); // on récupère les ressources
+
+       
+
+           
+
+           
+
             $entityManager->persist($stagiaire); // on enregistre la ressource
             $entityManager->flush(); // on envoie la ressource insert into
 
@@ -45,7 +55,10 @@ class StagiaireController extends AbstractController
 
         return $this->render('stagiaire/add.html.twig', [
             'formAddStagiaire' => $form->createView(), // généré le visuel du form
-            "edit" => $stagiaire->getId()
+            "edit" => $stagiaire->getId(),
+            
+            
+            
         ]);
 
     }
@@ -68,7 +81,8 @@ class StagiaireController extends AbstractController
 
         return $this->render('stagiaire/show.html.twig', [
             "stagiaire" => $stagiaire,
-            "edit" => $stagiaire->getId()
+            "edit" => $stagiaire->getId(),
+            
         ]);
     }
 }

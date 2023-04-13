@@ -1,21 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Accueil{% endblock %}
+{% block title %}Liste sessions{% endblock %}
 
 {% block body %}
 
-<h1>Accueil</h1>
+<h1>Liste des sessions</h1>
 
-{% if app.user %}
-<h2>Bonjour {{ app.user.identifiant }}</h2>
-{% else %}
-<h2>Bonjour</h2>
+{% if is_granted('ROLE_ADMIN') %}
+    <a href="{{path('add_session')}}">Ajouter une session</a>    
 {% endif %}
-
-
-
-<h2>Liste des sessions</h2>
-
 
         <h2>Sessions en cours</h2>
 
@@ -42,12 +35,16 @@
                 
                     {% for session in sessionsActuel %}
                     <tr>
-                        <td>complet</td>
-                        <td>{{ session.formation.nomFormation }}</td>
-                        <td><a href="">{{ session.nomSession }}</a></td>
+                        <td>
+                        {% if session.stagiaires.count == session.nbPlace %}
+                            Complet
+                        {% endif %}
+                    </td>
+                        <td>{{ session.formation.nomFormation }}</td>        
+                        <td><a href="{{ path('show_session',{'id':session.id})}}">{{ session.nomSession }}</a></td>
                         <td>{{session.dateDebut | date('d/m/Y')}}</td>
                         <td>{{session.dateFin | date('d/m/Y')}}</td>
-                        <td>/{{ session.nbPlace}}</td>
+                        <td>{{ session.stagiaires.count }}/{{ session.nbPlace}}</td>
 
                 
                         {% if is_granted('ROLE_ADMIN') %}
@@ -81,27 +78,32 @@
                 </tr>
             </thead>
             <tbody>
+                
                 {% if sessionsFutur is defined %}
                     
                 
-                    {% for session in sessionsFutur %}
-                    <tr>
-                        <td>complet</td>
-                        <td>{{ session.formation.nomFormation }}</td>
-                        <td><a href="">{{ session.nomSession }}</a></td>
-                        <td>{{session.dateDebut | date('d/m/Y')}}</td>
-                        <td>{{session.dateFin | date('d/m/Y')}}</td>
-                        <td>/{{ session.nbPlace}}</td>
+                {% for session in sessionsFutur %}
+                <tr>
+                    <td>
+                        {% if session.stagiaires.count == session.nbPlace %}
+                        Complet
+                    {% endif %}
+                    </td>
+                    <td>{{ session.formation.nomFormation }}</td>        
+                    <td><a href="{{ path('show_session',{'id':session.id})}}">{{ session.nomSession }}</a></td>
+                    <td>{{session.dateDebut | date('d/m/Y')}}</td>
+                    <td>{{session.dateFin | date('d/m/Y')}}</td>
+                    <td>{{ session.stagiaires.count }}/{{ session.nbPlace}}</td>
 
-                
-                        {% if is_granted('ROLE_ADMIN') %}
-                        <td><a href="">modifier</a></td> 
-                        <td><a href="">supprimer</a></td>  
-                        {% endif %}
-                        
-                    </tr>
-                    {% endfor %}  
-                    {% endif %} 
+            
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <td><a href="">modifier</a></td> 
+                    <td><a href="">supprimer</a></td>  
+                    {% endif %}
+                    
+                </tr>
+                {% endfor %}  
+                {% endif %}
             </tbody>
         </table>
 
@@ -130,12 +132,17 @@
                 
                     {% for session in sessionsPassees %}
                     <tr>
-                        <td>complet</td>
-                        <td>{{ session.formation.nomFormation }}</td>
-                        <td><a href="">{{ session.nomSession }}</a></td>
+                        
+                        <td>
+                            {% if session.stagiaires.count == session.nbPlace %}
+                            Complet
+                        {% endif %}
+                        </td>
+                        <td>{{ session.formation.nomFormation }}</td>        
+                        <td><a href="{{ path('show_session',{'id':session.id})}}">{{ session.nomSession }}</a></td>
                         <td>{{session.dateDebut | date('d/m/Y')}}</td>
                         <td>{{session.dateFin | date('d/m/Y')}}</td>
-                        <td>/{{ session.nbPlace}}</td>
+                        <td>{{ session.stagiaires.count }}/{{ session.nbPlace}}</td>
 
                 
                         {% if is_granted('ROLE_ADMIN') %}
@@ -145,10 +152,8 @@
                         
                     </tr>
                     {% endfor %}  
-                    {% endif %} 
+                    {% endif %}
             </tbody>
         </table>
-
-
 
 {% endblock %}

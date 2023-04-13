@@ -6,6 +6,8 @@
 
 <h1>Liste des sessions</h1>
 
+
+
 {% if is_granted('ROLE_ADMIN') %}
     <a href="{{path('add_session')}}">Ajouter une session</a>    
 {% endif %}
@@ -41,7 +43,7 @@
                         {% endif %}
                     </td>
                         <td>{{ session.formation.nomFormation }}</td>        
-                        <td><a href="">{{ session.nomSession }}</a></td>
+                        <td><a href="{{ path('show_session',{'id':session.id})}}">{{ session.nomSession }}</a></td>
                         <td>{{session.dateDebut | date('d/m/Y')}}</td>
                         <td>{{session.dateFin | date('d/m/Y')}}</td>
                         <td>{{ session.stagiaires.count }}/{{ session.nbPlace}}</td>
@@ -90,7 +92,7 @@
                     {% endif %}
                     </td>
                     <td>{{ session.formation.nomFormation }}</td>        
-                    <td><a href="">{{ session.nomSession }}</a></td>
+                    <td><a href="{{ path('show_session',{'id':session.id})}}">{{ session.nomSession }}</a></td>
                     <td>{{session.dateDebut | date('d/m/Y')}}</td>
                     <td>{{session.dateFin | date('d/m/Y')}}</td>
                     <td>{{ session.stagiaires.count }}/{{ session.nbPlace}}</td>
@@ -139,7 +141,7 @@
                         {% endif %}
                         </td>
                         <td>{{ session.formation.nomFormation }}</td>        
-                        <td><a href="">{{ session.nomSession }}</a></td>
+                        <td><a href="{{ path('show_session',{'id':session.id})}}">{{ session.nomSession }}</a></td>
                         <td>{{session.dateDebut | date('d/m/Y')}}</td>
                         <td>{{session.dateFin | date('d/m/Y')}}</td>
                         <td>{{ session.stagiaires.count }}/{{ session.nbPlace}}</td>

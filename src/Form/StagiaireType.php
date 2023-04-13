@@ -2,9 +2,11 @@
 
 namespace App\Form;
 
+use App\Entity\Session;
 use App\Entity\Stagiaire;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -24,7 +26,7 @@ class StagiaireType extends AbstractType
             ->add('telephone', TextType::class)
             ->add('adresse', TextType::class)
             ->add('ville', TextType::class)
-          //  ->add('sessions')
+           
             ->add('Valider', SubmitType::class)
         ;
     }

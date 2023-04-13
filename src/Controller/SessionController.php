@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Module;
 use App\Entity\Session;
+use App\Entity\Programme;
+use App\Entity\Stagiaire;
 use App\Form\SessionType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
@@ -84,6 +87,24 @@ class SessionController extends AbstractController
             "edit" => $session->getId()
         ]);
 
+    }
+
+
+    #[Route('/session/show/{id}', name: 'show_session')] // fiche detaillé session
+    public function show(ManagerRegistry  $doctrine, Session $session): Response{
+
+        $stagiaires = $doctrine->getRepository(Stagiaire::class)->findBy([], ["nomStagiaire"=> "ASC"]);
+        $modules = $doctrine->getRepository(Module::class)->findBy([], ["nomModule"=> "ASC"]);
+        $allProgramme = $doctrine->getRepository(Programme::class)->findBy([], ["nbJourModule"=> "ASC"]);
+
+        return $this->render('session/show.html.twig', [
+            "session" => $session,
+            "edit" => $session->getId(),
+            "stagiaires" => $stagiaires,
+            "modules" => $modules,
+            "allProgramme" => $allProgramme
+            
+        ]);
     }
 
        
