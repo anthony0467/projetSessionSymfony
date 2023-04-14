@@ -147,15 +147,21 @@
                 <tr>
                     <td>{{ programme.nomModule }}</td>
                     <td><a href="">{{ programme.categorie.nomCategorie }}</a></td>
-                    <td>jours</td>
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <td><a href="{{path('addModule_session', {'id': programme.id, 'idSession': session.id })}}">Programmer</a></td>  
-                    {% endif %} 
+                    <td>
+                        <form action="{{path('addModule_session', {'id': programme.id, 'idSession': session.id })}}" method="POST">
+                            <input type="number" name="duree" min="0" value="0"> jours
+                            {% if is_granted('ROLE_ADMIN') %}
+                               <td> <input type="submit" name="submit" value="Programmer">  </td>
+                            {% endif %} 
+                        </form>
+                    </td>
                 </tr>
             {% endif %}
         {% endfor %}
     </tbody>
 </table>
+
+
 
 
 {% endblock %}

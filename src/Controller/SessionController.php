@@ -7,6 +7,7 @@ use App\Entity\Session;
 use App\Entity\Programme;
 use App\Entity\Stagiaire;
 use App\Form\SessionType;
+use App\Form\SessionModuleType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -89,6 +90,18 @@ class SessionController extends AbstractController
 
     }
 
+
+    #[Route('/session/delete/{id}', name: 'delete_session')] // supprimer la session
+    public function delete(ManagerRegistry $doctrine, Session $session): Response{
+
+        $entityManager = $doctrine->getManager();
+        $entityManager->remove($session);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_home');
+    }
+
+
     #[Route('/session/{idSession}/{id}/remove', name: 'remove_sessionStagiaire')] // enlever un stagiaire d'une session
     public function remove(ManagerRegistry $doctrine, Stagiaire $stagiaire , $idSession): Response{
 
@@ -126,20 +139,36 @@ class SessionController extends AbstractController
     
         $entityManager = $doctrine->getManager(); // on récupère les ressources
 
+        if(isset($_POST['submit'])){
+
+            $duree = filter_input(INPUT_POST, "duree", FILTER_VALIDATE_INT);
+
+            var_dump($duree);
+
+            if($duree){
+        
+
         $session = $doctrine->getRepository(Session::class)->findOneBy(['id' => $idSession]);
         $module = $doctrine->getRepository(Module::class)->findOneBy(['id' => $id]);
+
+       
 
         $programme = new Programme();
         $programme->setModule($module);
         $programme->setSession($session);
-        $programme->setNbJourModule(4);
-    
+
+       
+            
+        $programme->setNbJourModule($duree);
+            
         // ajouter le programme de la session
         $session->addProgramme($programme);
     
         // enregistrer les modifications dans la base de données
         $entityManager->persist($programme);
         $entityManager->flush();
+      }
+    }
                 
         return $this->redirectToRoute('show_session', ['id' => $idSession]);
     }
@@ -167,18 +196,23 @@ class SessionController extends AbstractController
 
 
     #[Route('/session/show/{id}', name: 'show_session')] // fiche detaillé session
-    public function show(ManagerRegistry  $doctrine, Session $session): Response{
+    public function show(ManagerRegistry  $doctrine, Session $session, Request $request): Response{
 
         $stagiaires = $doctrine->getRepository(Stagiaire::class)->findBy([], ["nomStagiaire"=> "ASC"]);
         $modules = $doctrine->getRepository(Module::class)->findBy([], ["nomModule"=> "ASC"]);
         $allProgramme = $doctrine->getRepository(Programme::class)->findBy([], ["nbJourModule"=> "ASC"]);
+
+
+       
+
 
         return $this->render('session/show.html.twig', [
             "session" => $session,
             "edit" => $session->getId(),
             "stagiaires" => $stagiaires,
             "modules" => $modules,
-            "allProgramme" => $allProgramme
+            "allProgramme" => $allProgramme,
+            
             
         ]);
     }

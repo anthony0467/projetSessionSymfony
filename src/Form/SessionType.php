@@ -31,7 +31,7 @@ class SessionType extends AbstractType
             ->add('nbPlace', IntegerType::class)
             ->add('formation')
             ->add('formateur')
-            ->add('stagiaires')
+          //  ->add('stagiaires')
             ->add('valider', SubmitType::class)
         ;
     }
