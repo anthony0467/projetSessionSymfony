@@ -149,7 +149,7 @@
                     <td><a href="">{{ programme.categorie.nomCategorie }}</a></td>
                     <td>jours</td>
                     {% if is_granted('ROLE_ADMIN') %}
-                        <td><a href="">Programmer</a></td>  
+                        <td><a href="{{path('addModule_session', {'id': programme.id, 'idSession': session.id })}}">Programmer</a></td>  
                     {% endif %} 
                 </tr>
             {% endif %}
