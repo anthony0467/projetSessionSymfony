@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Session;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
@@ -78,5 +79,17 @@ class HomeController extends AbstractController
             "edit" => $session->getId()
         ]);
 
+    }
+
+       #[Route('/home/show/{id}', name: 'show_profil')] // fiche detaillé stagiaire
+    public function show( User $user): Response{
+       
+
+        return $this->render('home/show.html.twig', [
+            "user" => $user,
+            "edit" => $user->getId(),
+       
+            
+        ]);
     }
 }

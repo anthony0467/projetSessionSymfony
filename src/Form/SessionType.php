@@ -29,8 +29,14 @@ class SessionType extends AbstractType
                 'widget' =>'single_text' // calendrier
             ])
             ->add('nbPlace', IntegerType::class)
-            ->add('formation')
-            ->add('formateur')
+            ->add('formation', EntityType::class, [
+                'class' => Formation::class,
+                'choice_label' =>'nomFormation'
+            ])
+            ->add('formateur', EntityType::class, [
+                'class' => Formateur::class,
+                'choice_label' =>'nomFormateur'
+            ])
           //  ->add('stagiaires')
             ->add('valider', SubmitType::class)
         ;

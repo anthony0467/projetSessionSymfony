@@ -77,13 +77,13 @@ class StagiaireController extends AbstractController
 
 
     #[Route('/stagiaire/show/{id}', name: 'show_stagiaire')] // fiche detaillé stagiaire
-    public function show(ManagerRegistry $doctrine, Stagiaire $stagiaire): Response{
-        $stagiaires = $doctrine->getRepository(Stagiaire::class)->findBy([], ["nomStagiaire"=> "ASC"]);
+    public function show( Stagiaire $stagiaire): Response{
+       
 
         return $this->render('stagiaire/show.html.twig', [
             "stagiaire" => $stagiaire,
             "edit" => $stagiaire->getId(),
-            "stagiaires" => $stagiaires
+       
             
         ]);
     }

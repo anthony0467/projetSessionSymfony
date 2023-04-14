@@ -8,7 +8,36 @@
 
 <p>Email : {{ formateur.emailformateur}}</p>
 
-<h2>Sessions :</h2>
+<h2>Référent des sessions suivante :</h2>
+
+
+<table>
+    <thead>
+        <tr>
+            <th >Nom de la session</th>
+            <th >Date début : </th>
+            <th>Date fin</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+
+            {% for session in formateur.sessions %}
+           
+
+             <tr>
+                <td> {{session.nomSession}} </td>
+                <td> {{session.dateDebut |date('d/m/Y')}} </td>
+                <td> {{session.dateFin |date('d/m/Y')}} </td>
+            </tr>
+             
+            {% endfor %}
+
+
+            
+      
+    </tbody>
+</table>
 
 
 {% endblock %}

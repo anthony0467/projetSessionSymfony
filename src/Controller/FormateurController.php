@@ -64,9 +64,11 @@ class FormateurController extends AbstractController
 
     #[Route('/formateur/show/{id}', name: 'show_formateur')] // fiche detaillé formateur
     public function show(Formateur $formateur): Response{
+       
 
         return $this->render('formateur/show.html.twig', [
-            "formateur" => $formateur
+            "formateur" => $formateur,
+            
         ]);
     }
 }
