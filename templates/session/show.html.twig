@@ -61,8 +61,8 @@
         </tr>
     </thead>
     <tbody>
-            {% for stagiaire in stagiaires %}
-                {% if stagiaire not in session.stagiaires %}
+            {% for stagiaire in nonInscrits %}
+                
                 
             
             <tr>
@@ -75,7 +75,7 @@
                 
                 
             </tr>
-                {% endif %}
+               
             {% endfor %}
 
 

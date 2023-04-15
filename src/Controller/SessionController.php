@@ -7,7 +7,7 @@ use App\Entity\Session;
 use App\Entity\Programme;
 use App\Entity\Stagiaire;
 use App\Form\SessionType;
-use App\Form\SessionModuleType;
+use App\Repository\SessionRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -196,22 +196,23 @@ class SessionController extends AbstractController
 
 
     #[Route('/session/show/{id}', name: 'show_session')] // fiche detaillé session
-    public function show(ManagerRegistry  $doctrine, Session $session, Request $request): Response{
+    public function show(ManagerRegistry  $doctrine, Session $session, SessionRepository $sr, Request $request): Response{
 
-        $stagiaires = $doctrine->getRepository(Stagiaire::class)->findBy([], ["nomStagiaire"=> "ASC"]);
+        //$stagiaires = $doctrine->getRepository(Stagiaire::class)->findBy([], ["nomStagiaire"=> "ASC"]);
         $modules = $doctrine->getRepository(Module::class)->findBy([], ["nomModule"=> "ASC"]);
         $allProgramme = $doctrine->getRepository(Programme::class)->findBy([], ["nbJourModule"=> "ASC"]);
 
-
+        $session_id = $session->getId();
+        $nonInscrit = $sr->findNonInscrit($session_id); // requete DQL
        
-
 
         return $this->render('session/show.html.twig', [
             "session" => $session,
             "edit" => $session->getId(),
-            "stagiaires" => $stagiaires,
+            //"stagiaires" => $stagiaires,
             "modules" => $modules,
             "allProgramme" => $allProgramme,
+            "nonInscrits" => $nonInscrit
             
             
         ]);
