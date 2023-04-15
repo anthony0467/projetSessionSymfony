@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste sessions{% endblock %}
+
+{% block body %}
+{% if is_granted('ROLE_ADMIN') %}
+
+<h1>Mon panneau admin</h1>
+
+<ul>
+    <li>
+        <a href="{{path('app_formateur')}}">Gérer les formateurs</a>
+    </li>
+    <li>
+        <a href="{{path('app_stagiaire')}}">Gérer les stagiaires</a>
+    </li>
+    <li>
+        <a href="{{path('app_formation')}}">Ajouter une formation</a>
+    </li>
+    <li>
+        <a href="{{path('app_formateur')}}">Ajouter une catégorie</a>
+    </li>
+    <li>
+        <a href="{{path('app_session')}}">Gérer les sessions</a>
+    </li>
+    <li>
+        <a href="{{path('add_module')}}">Ajouter des modules</a>
+    </li>
+</ul>
+
+{% else %}
+
+<p>Vous n'avez pas les droits pour accéder à cette page.</p>
+    
+{% endif %}
+
+
+{% endblock %}

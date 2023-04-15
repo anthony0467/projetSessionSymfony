@@ -57,7 +57,7 @@
 
                 {% if is_granted('ROLE_ADMIN') %} <!--Si utilisateur est admin -->
                 <li>
-                    <a href="">Administration</a>
+                    <a href="{{path('admin_home')}}">Administration</a>
                 </li>
                     
                 {% endif %}

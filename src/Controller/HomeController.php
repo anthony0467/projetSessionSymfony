@@ -54,6 +54,19 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig', []);
     }
 
+    #[Route('/home/admin', name: 'admin_home')]
+    public function admin(ManagerRegistry $doctrine): Response
+    {
+
+         
+         return $this->render('home/admin.html.twig', [
+             'controller_name' => 'SessionController',
+             
+         ]);
+
+        return $this->render('home/index.html.twig', []);
+    }
+
     #[Route('/session/add', name: 'add_session')] // ajouter un session
     #[Route('/session/{id}/edit', name: 'edit_session')] // modifier un session
     public function add(ManagerRegistry $doctrine, session $session = null, Request $request): Response{
