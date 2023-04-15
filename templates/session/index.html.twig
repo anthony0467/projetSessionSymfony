@@ -4,9 +4,8 @@
 
 {% block body %}
 
+
 <h1>Liste des sessions</h1>
-
-
 
 {% if is_granted('ROLE_ADMIN') %}
     <a href="{{path('add_session')}}">Ajouter une session</a>    
@@ -50,8 +49,8 @@
 
                 
                         {% if is_granted('ROLE_ADMIN') %}
-                        <td><a href="">modifier</a></td> 
-                        <td><a href="">supprimer</a></td>  
+                        <td><a href="{{path('edit_session', {'id': session.id })}}">modifier</a></td> 
+                        <td><a href="{{path('delete_session', {'id': session.id })}}">supprimer</a></td>  
                         {% endif %}
                         
                     </tr>
@@ -99,8 +98,8 @@
 
             
                     {% if is_granted('ROLE_ADMIN') %}
-                    <td><a href="">modifier</a></td> 
-                    <td><a href="">supprimer</a></td>  
+                    <td><a href="{{path('edit_session', {'id': session.id })}}">modifier</a></td> 
+                    <td><a href="{{path('delete_session', {'id': session.id })}}">supprimer</a></td>  
                     {% endif %}
                     
                 </tr>
@@ -148,8 +147,8 @@
 
                 
                         {% if is_granted('ROLE_ADMIN') %}
-                        <td><a href="">modifier</a></td> 
-                        <td><a href="">supprimer</a></td>  
+                        <td><a href="{{path('edit_session', {'id': session.id })}}">modifier</a></td> 
+                        <td><a href="{{path('delete_session', {'id': session.id })}}">supprimer</a></td>  
                         {% endif %}
                         
                     </tr>

@@ -37,7 +37,10 @@
             {% for stagiaire in session.stagiaires %}
             <tr>
                 <td><a href="{{ path('show_stagiaire',{'id':stagiaire.id})}}">{{ stagiaire }}</a></td>
-                <td><a href="{{path('remove_sessionStagiaire', {'id': stagiaire.id, 'idSession': session.id })}}">Désinscrire</a></td>   
+                {% if is_granted('ROLE_ADMIN') %}
+                <td><a href="{{path('remove_sessionStagiaire', {'id': stagiaire.id, 'idSession': session.id })}}">Désinscrire</a></td> 
+                {% endif %}
+                  
                 
                 
             </tr>
@@ -67,7 +70,7 @@
             
             <tr>
                 <td><a href="{{ path('show_stagiaire',{'id':stagiaire.id})}}">{{ stagiaire }}</a></td>
-                {% if  session.nbPlace > session.getStagiaires | length  %}
+                {% if is_granted('ROLE_ADMIN') and session.nbPlace > session.getStagiaires | length  %}
                     
                     <td><a href="{{path('inscrire_sessionStagiaire', {'id': stagiaire.id, 'idSession': session.id })}}">Inscrire</a></td>   
 

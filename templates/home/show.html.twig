@@ -3,7 +3,29 @@
 {% block title %}Fiche détaillé stagiaire{% endblock %}
 
 {% block body %}
-<h1>{{ app.user.identifiant}}</h1>
+
+{% if app.user %}
+
+<h1>Identifiant : {{ app.user.identifiant}}</h1>
+
+<p>Email : {{ app.user.email}}</p>
+
+{% if is_granted('ROLE_ADMIN') %}
+
+<p>Role : Administrateur du site.</p>
+
+{% else %}
+
+<p>Role : Utilisateur</p>
+    
+{% endif %}
+
+{% else %}
+
+<p>Vous n'avez pas accès à cette page.</p>
+    
+{% endif %}
+
 
 
 

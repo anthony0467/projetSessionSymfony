@@ -94,15 +94,16 @@ class HomeController extends AbstractController
 
     }
 
-       #[Route('/home/show/{id}', name: 'show_profil')] // fiche detaillé stagiaire
-    public function show( User $user): Response{
-       
+    #[Route('/home/show', name: 'show_home')]
+    public function ashow(ManagerRegistry $doctrine): Response
+    {
 
-        return $this->render('home/show.html.twig', [
-            "user" => $user,
-            "edit" => $user->getId(),
-       
-            
-        ]);
+         
+         return $this->render('home/show.html.twig', [
+             'controller_name' => 'SessionController',
+             
+         ]);
+
+        return $this->render('home/index.html.twig', []);
     }
 }
