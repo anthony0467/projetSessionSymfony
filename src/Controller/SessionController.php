@@ -199,20 +199,22 @@ class SessionController extends AbstractController
     public function show(ManagerRegistry  $doctrine, Session $session, SessionRepository $sr, Request $request): Response{
 
         //$stagiaires = $doctrine->getRepository(Stagiaire::class)->findBy([], ["nomStagiaire"=> "ASC"]);
-        $modules = $doctrine->getRepository(Module::class)->findBy([], ["nomModule"=> "ASC"]);
-        $allProgramme = $doctrine->getRepository(Programme::class)->findBy([], ["nbJourModule"=> "ASC"]);
+        //$modules = $doctrine->getRepository(Module::class)->findBy([], ["nomModule"=> "ASC"]);
+        //$allProgramme = $doctrine->getRepository(Programme::class)->findBy([], ["nbJourModule"=> "ASC"]);
 
         $session_id = $session->getId();
         $nonInscrit = $sr->findNonInscrit($session_id); // requete DQL
+        $nonProgramme = $sr->findNonProgrammes($session_id); // requete DQL
        
 
         return $this->render('session/show.html.twig', [
             "session" => $session,
             "edit" => $session->getId(),
             //"stagiaires" => $stagiaires,
-            "modules" => $modules,
-            "allProgramme" => $allProgramme,
-            "nonInscrits" => $nonInscrit
+            //"modules" => $modules,
+            //"allProgramme" => $allProgramme,
+            "nonInscrits" => $nonInscrit,
+            "nonProgrammes" => $nonProgramme
             
             
         ]);

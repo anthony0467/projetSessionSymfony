@@ -141,9 +141,9 @@
         </tr>
     </thead>
     <tbody>
-        {% set modules_session = session.programmes|map(p => p.module) %} 
-        {% for programme in modules %}
-            {% if programme not in modules_session %}
+        
+        {% for programme in nonProgrammes %}
+            
                 <tr>
                     <td>{{ programme.nomModule }}</td>
                     <td><a href="">{{ programme.categorie.nomCategorie }}</a></td>
@@ -156,7 +156,7 @@
                         </form>
                     </td>
                 </tr>
-            {% endif %}
+         
         {% endfor %}
     </tbody>
 </table>
