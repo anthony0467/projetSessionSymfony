@@ -47,6 +47,7 @@ h1, h2, h3{
     font-weight: bold;
     color: #fff;
     padding: 1rem ;
+    margin: 1rem;
 }
 
 h1{
@@ -70,7 +71,7 @@ nav ul
     flex-direction: row;
     justify-content: center;
     gap: 2rem;
-    background-color: #BF9898;
+    background-color: #683838;
     padding: 1rem 0;
 }
 
@@ -113,7 +114,7 @@ tr{
 
 
 tr:nth-child(odd){
-    background-color: #BF9898;
+    background-color: #683838;
 }
 
 tr:nth-child(even){
@@ -130,14 +131,86 @@ td{
     text-align: center;
 }
 
+.border-none{
+    border: none;
+}
+
+.border-module{
+    border-bottom: 1px solid white;
+    border-right: 1px solid white;
+}
+
 /* ================================================================= BOUTON =================================================================*/
 
 .btn{
+    cursor: pointer;
     background: #7B0D2E;
     padding: .55rem .75rem;
     transition: .35s;
+    color: #fff;
 }
 
 .btn:hover{
-    background: #b62551;;
+    background: #b62551;
+}
+
+/* ================================================================= PROFILES ================================================================= */
+
+.profil{
+    background-color: #8c5151;
+    padding: 1rem;
+    color: #fff;
+}
+
+.grid-admin{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+}
+
+.grid-admin li{
+    background-color: #683838;
+    padding: 6rem;
+}
+
+.grid-admin li a{
+    font-size: 25px;
+    font-weight: bold;
+    transition: .35s;
+}
+
+.grid-admin li a:hover{
+
+    color: #025B6F;
+}
+
+/*  ================================================================= SESSIONS =================================================================*/
+
+.container-session{
+    background-color: #8c5151;
+    color: #fff;
+    padding: 1rem;
+    margin: 2rem 0;
+    width: 100%;
+}
+
+
+.container-stagiaire{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.container-programme{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.input-number{
+    max-width: 30px;
 }

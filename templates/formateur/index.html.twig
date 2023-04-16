@@ -7,7 +7,7 @@
 <h1>Liste des Formateurs</h1>
 
 {% if is_granted('ROLE_ADMIN') %}
-    <a href="{{path('add_formateur')}}">Ajouter un formateur</a>    
+    <a class="btn" href="{{path('add_formateur')}}">Ajouter un formateur</a>    
 {% endif %}
 
 <table>

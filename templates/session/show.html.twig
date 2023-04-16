@@ -3,168 +3,185 @@
 {% block title %}Fiche détaillé session{% endblock %}
 
 {% block body %}
-<h1> Session : {{ session.nomSession }}</h1>
+<div class="container-session">
+    <h1 > Session : {{ session.nomSession }}</h1>
 
 
-<p>Formateur référent : {{ session.Formateur}}</p>
-<p>Date de début: {{ session.dateDebut | date('d/m/Y')}}</p>
-<p>Date de fin: {{ session.dateFin | date('d/m/Y')}}</p>
-<p>Nombre de places : {{ session.nbPlace }}</p>
-<p>Nombre de places restante : {{ session.nbPlace - session.getStagiaires | length }}</p>
-<p>Nombre de modules : {{ session.programmes | length}} (
-    {% for programme in session.programmes %}
-     {{ programme.module.nomModule}}
-    
-{% endfor %}
-)
- </p>
-
-
-
-
-<h2>Stagiaire inscrit :</h2>
-
-<table>
-    <thead>
-        <tr>
-            <th >Stagiaire</th>
-            {% if is_granted('ROLE_ADMIN') %}
-                <th>Désinscrire</th>  
-            {% endif %}
-        </tr>
-    </thead>
-    <tbody>
-            {% for stagiaire in session.stagiaires %}
-            <tr>
-                <td><a href="{{ path('show_stagiaire',{'id':stagiaire.id})}}">{{ stagiaire }}</a></td>
-                {% if is_granted('ROLE_ADMIN') %}
-                <td><a href="{{path('remove_sessionStagiaire', {'id': stagiaire.id, 'idSession': session.id })}}">Désinscrire</a></td> 
-                {% endif %}
-                  
-                
-                
-            </tr>
-            {% endfor %}
-
-
-            
-      
-    </tbody>
-</table>
-
-<h2>Stagiaire non-inscrit :</h2>
-
-<table>
-    <thead>
-        <tr>
-            <th >Stagiaire</th>
-            {% if is_granted('ROLE_ADMIN') %}
-                <th>Inscrire</th>  
-            {% endif %}
-        </tr>
-    </thead>
-    <tbody>
-            {% for stagiaire in nonInscrits %}
-                
-                
-            
-            <tr>
-                <td><a href="{{ path('show_stagiaire',{'id':stagiaire.id})}}">{{ stagiaire }}</a></td>
-                {% if is_granted('ROLE_ADMIN') and session.nbPlace > session.getStagiaires | length  %}
-                    
-                    <td><a href="{{path('inscrire_sessionStagiaire', {'id': stagiaire.id, 'idSession': session.id })}}">Inscrire</a></td>   
-
-                {% endif %}
-                
-                
-            </tr>
-               
-            {% endfor %}
-
-
-            
-      
-    </tbody>
-</table>
-
-
-<h2>Programme:</h2>
-
-<table>
-    <thead>
-        <tr>
-            <th >Module</th>
-            <th >Catégorie</th>
-            <th >Durée</th>
-            {% if is_granted('ROLE_ADMIN') %}
-                <th>Déprogrammer</th>  
-            {% endif %}
-        </tr>
-    </thead>
-    <tbody>
-            {% for programme in session.programmes %}
-               <tr>
-                    <td>{{ programme.module}}</td>
-                    <td><a href="">{{ programme.module.categorie.nomCategorie }}</a></td>
-                    <td>{{ programme.nbJourModule }} jours</td>
-                    {% if is_granted('ROLE_ADMIN') %}
-                    <td><a href="{{path('remove_sessionProgramme', {'id': programme.id, 'idSession': session.id })}}">Déprogrammer</a></td>  
-                {% endif %} 
-                </tr>
-                {% endfor %}
-
-            <tr>
-                {% set totalJours = 0 %}
-               <th>Total de jours :  {% for programme in session.programmes %}
-                {% set totalJours = totalJours + programme.nbJourModule %}
-                
-               {% endfor %}
-               {{totalJours }} jours
-             </th> 
-            </tr>
-           
-
-            
-      
-    </tbody>
-</table>
-
-
-<h2>Modules non programmés</h2>
-
-<table>
-    <thead>
-        <tr>
-            <th >Module</th>
-            <th >Catégorie</th>
-            <th >Durée</th>
-            {% if is_granted('ROLE_ADMIN') %}
-                <th>Programmer</th>  
-            {% endif %}
-        </tr>
-    </thead>
-    <tbody>
+    <p>Formateur référent : {{ session.Formateur}}</p>
+    <p>Date de début: {{ session.dateDebut | date('d/m/Y')}}</p>
+    <p>Date de fin: {{ session.dateFin | date('d/m/Y')}}</p>
+    <p>Nombre de places : {{ session.nbPlace }}</p>
+    <p>Nombre de places restante : {{ session.nbPlace - session.getStagiaires | length }}</p>
+    <p>Nombre de modules : {{ session.programmes | length}} (
+        {% for programme in session.programmes %}
+        {{ programme.module.nomModule}}
         
-        {% for programme in nonProgrammes %}
-            
+    {% endfor %}
+    )
+    </p>
+
+</div>
+<div class="container-stagiaire">
+
+    <div>
+
+        <h2>Stagiaire inscrit :</h2>
+
+        <table>
+            <thead>
                 <tr>
-                    <td>{{ programme.nomModule }}</td>
-                    <td><a href="">{{ programme.categorie.nomCategorie }}</a></td>
-                    <td>
-                        <form action="{{path('addModule_session', {'id': programme.id, 'idSession': session.id })}}" method="POST">
-                            <input type="number" name="duree" min="0" value="0"> jours
-                            {% if is_granted('ROLE_ADMIN') %}
-                               <td> <input type="submit" name="submit" value="Programmer">  </td>
-                            {% endif %} 
-                        </form>
-                    </td>
+                    <th >Stagiaire</th>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <th>Désinscrire</th>  
+                    {% endif %}
                 </tr>
-         
-        {% endfor %}
-    </tbody>
-</table>
+            </thead>
+            <tbody>
+                    {% for stagiaire in session.stagiaires %}
+                    <tr>
+                        <td><a href="{{ path('show_stagiaire',{'id':stagiaire.id})}}">{{ stagiaire }}</a></td>
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <td><a href="{{path('remove_sessionStagiaire', {'id': stagiaire.id, 'idSession': session.id })}}"><i class="fa-regular fa-square-minus" style="color: #c62424;"></i></a></td> 
+                        {% endif %}
+                        
+                        
+                        
+                    </tr>
+                    {% endfor %}
 
 
+                    
+            
+            </tbody>
+        </table>
+
+    </div>
+
+    <div>
+
+        <h2>Stagiaire non-inscrit :</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th >Stagiaire</th>
+                    {% if is_granted('ROLE_ADMIN') and session.nbPlace > session.getStagiaires | length %}
+                        <th>Inscrire</th>  
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                    {% for stagiaire in nonInscrits %}
+                        
+                        
+                    
+                    <tr>
+                        <td><a href="{{ path('show_stagiaire',{'id':stagiaire.id})}}">{{ stagiaire }}</a></td>
+                        {% if is_granted('ROLE_ADMIN') and session.nbPlace > session.getStagiaires | length  %}
+                            
+                            <td><a href="{{path('inscrire_sessionStagiaire', {'id': stagiaire.id, 'idSession': session.id })}}"><i class="fa-regular fa-square-plus" style="color: #66ba21;"></i></a></td>   
+
+                        {% endif %}
+                        
+                        
+                    </tr>
+                    
+                    {% endfor %}
+
+
+                    
+            
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+<div class="container-programme">
+    <div>
+
+        <h2>Programme :</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th >Module</th>
+                    <th >Catégorie</th>
+                    <th >Durée</th>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <th>Déprogrammer</th>  
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                    {% for programme in session.programmes %}
+                    <tr>
+                            <td>{{ programme.module}}</td>
+                            <td><a href="">{{ programme.module.categorie.nomCategorie }}</a></td>
+                            <td>{{ programme.nbJourModule }} jours</td>
+                            {% if is_granted('ROLE_ADMIN') %}
+                            <td><a href="{{path('remove_sessionProgramme', {'id': programme.id, 'idSession': session.id })}}"><i class="fa-regular fa-square-minus" style="color: #c62424;"></i></a></td>  
+                        {% endif %} 
+                        </tr>
+                        {% endfor %}
+
+                    <tr class="border-none">
+                        {% set totalJours = 0 %}
+                    <th class="border-module">Total de jours :  {% for programme in session.programmes %}
+                        {% set totalJours = totalJours + programme.nbJourModule %}
+                        
+                    {% endfor %}
+                    {{totalJours }} jours
+                    </th> 
+                    </tr>
+                
+
+                    
+            
+            </tbody>
+        </table>
+    </div>
+
+    <div>
+
+        <h2>Modules non programmés :</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th >Module</th>
+                    <th >Catégorie</th>
+                    <th >Durée</th>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <th>Programmer</th>  
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                
+                {% for programme in nonProgrammes %}
+                    
+                        <tr>
+                            <td>{{ programme.nomModule }}</td>
+                            <td><a href="">{{ programme.categorie.nomCategorie }}</a></td>
+                            <td>
+                                <form action="{{path('addModule_session', {'id': programme.id, 'idSession': session.id })}}" method="POST">
+                                    <input type="number" name="duree" min="0" value="0" class="input-number"> jours
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                    <td> <input class="btn" type="submit" name="submit" value="Programmer">  </td>
+                                    {% endif %} 
+                                </form>
+                            </td>
+                        </tr>
+                
+                {% endfor %}
+            </tbody>
+        </table>
+        
+    </div>
+
+</div>
 
 
 {% endblock %}
