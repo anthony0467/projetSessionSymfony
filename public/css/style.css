@@ -127,4 +127,17 @@ th{
 
 td{
     padding: 1rem;
+    text-align: center;
+}
+
+/* ================================================================= BOUTON =================================================================*/
+
+.btn{
+    background: #7B0D2E;
+    padding: .55rem .75rem;
+    transition: .35s;
+}
+
+.btn:hover{
+    background: #b62551;;
 }

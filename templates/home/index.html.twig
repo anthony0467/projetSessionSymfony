@@ -13,7 +13,7 @@
 <h1>Liste des sessions</h1>
 
 {% if is_granted('ROLE_ADMIN') %}
-    <a href="{{path('add_session')}}">Ajouter une session</a>    
+    <a class="btn" href="{{path('add_session')}}">Ajouter une session</a>    
 {% endif %}
 
         <h2>Sessions en cours</h2>
@@ -43,7 +43,7 @@
                     <tr>
                         <td>
                         {% if session.stagiaires.count == session.nbPlace %}
-                            Complet
+                        <p class="btn">Complet</p> 
                         {% endif %}
                     </td>
                         <td>{{ session.formation.nomFormation }}</td>        
@@ -54,8 +54,8 @@
 
                 
                         {% if is_granted('ROLE_ADMIN') %}
-                        <td><a href="{{path('edit_session', {'id': session.id })}}">modifier</a></td> 
-                        <td><a href="{{path('delete_session', {'id': session.id })}}">supprimer</a></td>  
+                        <td><a href="{{path('edit_session', {'id': session.id })}}"><i class="fa-sharp fa-solid fa-pen-to-square fa-xl" style="color: #ffc800;"></i></a></td> 
+                        <td><a href="{{path('delete_session', {'id': session.id })}}"><i class="fa-solid fa-delete-left fa-xl" style="color: #fc0303;"></i></a></td>  
                         {% endif %}
                         
                     </tr>
@@ -92,7 +92,7 @@
                 <tr>
                     <td>
                         {% if session.stagiaires.count == session.nbPlace %}
-                        Complet
+                        <p class="btn">Complet</p> 
                     {% endif %}
                     </td>
                     <td>{{ session.formation.nomFormation }}</td>        
@@ -103,8 +103,8 @@
 
             
                     {% if is_granted('ROLE_ADMIN') %}
-                    <td><a href="{{path('edit_session', {'id': session.id })}}">modifier</a></td> 
-                    <td><a href="{{path('delete_session', {'id': session.id })}}">supprimer</a></td>  
+                    <td><a href="{{path('edit_session', {'id': session.id })}}"><i class="fa-sharp fa-solid fa-pen-to-square fa-xl" style="color: #ffc800;"></i></a></td> 
+                    <td><a href="{{path('delete_session', {'id': session.id })}}"><i class="fa-solid fa-delete-left fa-xl" style="color: #fc0303;"></i></a></td>  
                     {% endif %}
                     
                 </tr>
@@ -141,7 +141,7 @@
                         
                         <td>
                             {% if session.stagiaires.count == session.nbPlace %}
-                            Complet
+                            <p class="btn">Complet</p> 
                         {% endif %}
                         </td>
                         <td>{{ session.formation.nomFormation }}</td>        
@@ -152,8 +152,8 @@
 
                 
                         {% if is_granted('ROLE_ADMIN') %}
-                        <td><a href="{{path('edit_session', {'id': session.id })}}">modifier</a></td> 
-                        <td><a href="{{path('delete_session', {'id': session.id })}}">supprimer</a></td>  
+                        <td><a href="{{path('edit_session', {'id': session.id })}}"><i class="fa-sharp fa-solid fa-pen-to-square fa-xl" style="color: #ffc800;"></i></a></td> 
+                        <td><a href="{{path('delete_session', {'id': session.id })}}"><i class="fa-solid fa-delete-left fa-xl" style="color: #fc0303;"></i></a></td>  
                         {% endif %}
                         
                     </tr>
