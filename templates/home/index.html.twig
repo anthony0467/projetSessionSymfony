@@ -6,9 +6,8 @@
 
 {% if app.user %}
     <h2>Bonjour {{ app.user.identifiant }}</h2>
-    {% else %}
-    <h2>Bonjour</h2>
-{% endif %}
+    
+
 
 <h1>Liste des sessions</h1>
 
@@ -161,5 +160,7 @@
                     {% endif %}
             </tbody>
         </table>
-
+        {% else %}
+    <h2>Merci de vous connectez pour avoir accès au contenu</h2>
+        {% endif %}
 {% endblock %}

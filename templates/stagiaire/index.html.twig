@@ -3,6 +3,11 @@
 {% block title %}Liste des stagiaires{% endblock %}
 
 {% block body %}
+
+{% if app.user %}
+    
+
+
 <h1>Liste des stagiaires</h1>
 
 
@@ -51,4 +56,9 @@
       
     </tbody>
 </table>
+
+{% else %}
+<h2>Merci de vous connectez pour avoir accès au contenu</h2>
+
+{% endif %}
 {% endblock %}

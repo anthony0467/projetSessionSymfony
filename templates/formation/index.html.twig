@@ -4,6 +4,10 @@
 
 {% block body %}
 
+{% if app.user %}
+    
+
+
 <h1>Liste des Formations</h1>
 
 {% if is_granted('ROLE_ADMIN') %}
@@ -40,4 +44,9 @@
       
     </tbody>
 </table>
+
+{% else %}
+<h2>Merci de vous connectez pour avoir accès au contenu</h2>
+
+{% endif %}
 {% endblock %}

@@ -4,6 +4,9 @@
 
 {% block body %}
 
+{% if app.user %}
+    
+
 
 <h1>Liste des sessions</h1>
 
@@ -156,5 +159,10 @@
                     {% endif %}
             </tbody>
         </table>
+
+        {% else %}
+        <h2>Merci de vous connectez pour avoir accès au contenu</h2>
+
+        {% endif %}
 
 {% endblock %}

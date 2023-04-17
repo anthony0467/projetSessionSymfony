@@ -23,7 +23,7 @@
                 <li>
                     <a href="{{path('app_home')}}">Accueil</a>
                 </li>
-
+                {% if app.user %} <!--Si utilisateur connecté-->
                 <li>
                     <a href="{{path('app_formation')}}">Formation</a>
                 </li>
@@ -45,7 +45,7 @@
                 </li>
             
         
-                {% if app.user %} <!--Si utilisateur connecté-->
+                
                 <li>
                     <a href="{{ path('app_logout')}}">Déconnexion</a>
                 </li>
@@ -75,12 +75,13 @@
     <div class="topnav none-small-ecran">
       <a href="{{path('app_home')}}" class="active">Accueil</a>
       <div id="myLinks">
+        {% if app.user %}
         <a href="{{path('app_formation')}}">Formation</a>
         <a href="{{path('app_session')}}">Sessions</a>
         <a href="{{path('app_stagiaire')}}">Stagiaires</a>
         <a href="{{path('app_formateur')}}">Formateurs</a>
         <a href="{{path('app_categorie')}}">Catégorie</a>
-        {% if app.user %}
+        
         
             <a href="{{path('app_logout')}}">Déconnexion</a>
             <a href="{{path('show_home')}}">Mon profil</a>
@@ -106,7 +107,7 @@
 
     <footer>
         <p>&copy; 2023 - Sessions AS </p>
-        <!--<button id="ajaxbtn">Surprise en Ajax !</button> -> cliqué <span id="nbajax">0</span> fois-->
+       
     </footer>
     </body>
 </html>

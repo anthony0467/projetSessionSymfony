@@ -57,10 +57,12 @@ h1, h2, h3{
 
 h1{
     font-size: 35px;
+    text-align: center;
 }
 
 h2{
     font-size: 28px;
+    text-align: center;
 }
 
 h3{
@@ -230,6 +232,7 @@ td{
 
 .profil{
     background-color: #8c5151;
+    margin: 1rem;
     padding: 1rem;
     color: #fff;
 }
