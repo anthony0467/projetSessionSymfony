@@ -118,7 +118,7 @@
                     {% for programme in session.programmes %}
                     <tr>
                             <td>{{ programme.module}}</td>
-                            <td><a href="">{{ programme.module.categorie.nomCategorie }}</a></td>
+                            <td>{{ programme.module.categorie.nomCategorie }}</td>
                             <td>{{ programme.nbJourModule }} jours</td>
                             {% if is_granted('ROLE_ADMIN') %}
                             <td><a href="{{path('remove_sessionProgramme', {'id': programme.id, 'idSession': session.id })}}"><i class="fa-regular fa-square-minus" style="color: #c62424;"></i></a></td>  
@@ -164,7 +164,7 @@
                     
                         <tr>
                             <td>{{ programme.nomModule }}</td>
-                            <td><a href="">{{ programme.categorie.nomCategorie }}</a></td>
+                            <td>{{ programme.categorie.nomCategorie }}</td>
                             <td>
                                 <form class="dsp-form" action="{{path('addModule_session', {'id': programme.id, 'idSession': session.id })}}" method="POST">
                                     <input type="number" name="duree" min="0" value="0" class="input-number"> jours

@@ -12,7 +12,7 @@
 
 <table>
     <thead>
-        <tr>
+        <tr class="title-table">
             <th >Nom de la formation </th>
             
            
@@ -25,7 +25,7 @@
     <tbody>
             {% for formation in formations %}
             <tr>
-                <td><a href="">{{ formation }}</a></td>
+                <td>{{ formation }}</td>
            
                 {% if is_granted('ROLE_ADMIN') %}
                 <td><a href="{{path('edit_formation', {'id': formation.id })}}"><i class="fa-sharp fa-solid fa-pen-to-square fa-xl" style="color: #ffc800;"></i></a></td> 

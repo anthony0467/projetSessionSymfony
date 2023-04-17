@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}Sessions Site{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -13,10 +14,11 @@
 
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
+            <script src="{{ asset('js/style.js') }}"></script>
         {% endblock %}
     </head>
     <body>
-        <nav>
+        <nav class="none-menu-ecran">
             <ul>
                 <li>
                     <a href="{{path('app_home')}}">Accueil</a>
@@ -65,6 +67,39 @@
                 {% endif %}
             </ul>
     </nav>
+
+    <!-- Simulate a smartphone / tablet -->
+
+
+    <!-- Top Navigation Menu -->
+    <div class="topnav none-small-ecran">
+      <a href="{{path('app_home')}}" class="active">Accueil</a>
+      <div id="myLinks">
+        <a href="{{path('app_formation')}}">Formation</a>
+        <a href="{{path('app_session')}}">Sessions</a>
+        <a href="{{path('app_stagiaire')}}">Stagiaires</a>
+        <a href="{{path('app_formateur')}}">Formateurs</a>
+        <a href="{{path('app_categorie')}}">Catégorie</a>
+        {% if app.user %}
+        
+            <a href="{{path('app_logout')}}">Déconnexion</a>
+            <a href="{{path('show_home')}}">Mon profil</a>
+            {% else %}
+            <a href="{{ path('app_login')}}">Connexion</a>
+        {% endif %}
+        {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{path('admin_home')}}">Administration</a>
+        {% endif %}
+        
+      </div>
+      <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+        <i class="fa fa-bars"></i>
+      </a>
+    </div>
+    
+    
+
+
     <div class="container">
         {% block body %}{% endblock %}
     </div>

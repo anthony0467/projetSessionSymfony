@@ -12,7 +12,7 @@
 
 <table>
     <thead>
-        <tr>
+        <tr class="title-table">
             <th >Nom du module</th>
             
            
@@ -25,7 +25,7 @@
     <tbody>
             {% for module in modules %}
             <tr>
-                <td><a href="">{{ module }}</a></td>
+                <td>{{ module }}</td>
                 
         
                 {% if is_granted('ROLE_ADMIN') %}
