@@ -29,7 +29,7 @@
 
         <table>
             <thead>
-                <tr>
+                <tr class="title-table">
                     <th >Stagiaire</th>
                     {% if is_granted('ROLE_ADMIN') %}
                         <th>Désinscrire</th>  
@@ -63,7 +63,7 @@
 
         <table>
             <thead>
-                <tr>
+                <tr class="title-table">
                     <th >Stagiaire</th>
                     {% if is_granted('ROLE_ADMIN') and session.nbPlace > session.getStagiaires | length %}
                         <th>Inscrire</th>  
@@ -105,7 +105,7 @@
 
         <table>
             <thead>
-                <tr>
+                <tr class="title-table">
                     <th >Module</th>
                     <th >Catégorie</th>
                     <th >Durée</th>
@@ -149,7 +149,7 @@
 
         <table>
             <thead>
-                <tr>
+                <tr class="title-table">
                     <th >Module</th>
                     <th >Catégorie</th>
                     <th >Durée</th>

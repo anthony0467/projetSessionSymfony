@@ -172,6 +172,10 @@ table{
     width: 100%;
 }
 
+.title-table{
+    font-weight: bold;
+}
+
 tr{
     border-bottom: 1px solid white;
     color: #fff;
@@ -247,6 +251,7 @@ td{
     background-color: #683838;
     padding: 3rem;
     margin: 1rem;
+    text-align: center;
 }
 
 .grid-admin li a{
@@ -255,10 +260,7 @@ td{
     transition: .35s;
 }
 
-.grid-admin li a:hover{
 
-    color: #025B6F;
-}
 
 /*  ================================================================= SESSIONS =================================================================*/
 
