@@ -166,7 +166,7 @@
                             <td>{{ programme.nomModule }}</td>
                             <td><a href="">{{ programme.categorie.nomCategorie }}</a></td>
                             <td>
-                                <form action="{{path('addModule_session', {'id': programme.id, 'idSession': session.id })}}" method="POST">
+                                <form class="dsp-form" action="{{path('addModule_session', {'id': programme.id, 'idSession': session.id })}}" method="POST">
                                     <input type="number" name="duree" min="0" value="0" class="input-number"> jours
                                     {% if is_granted('ROLE_ADMIN') %}
                                     <td> <input class="btn" type="submit" name="submit" value="Programmer">  </td>
