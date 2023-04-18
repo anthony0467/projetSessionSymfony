@@ -38,6 +38,7 @@ class Session
     private Collection $programmes;
 
     #[ORM\ManyToOne(inversedBy: 'sessions')]
+    //#[ORM\Column(nullable: true)]
     private ?Formateur $formateur = null;
 
     #[ORM\ManyToMany(targetEntity: Stagiaire::class, mappedBy: 'sessions')]

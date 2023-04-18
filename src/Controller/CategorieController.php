@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Module;
 use App\Entity\Categorie;
 use App\Form\CategorieType;
 use Doctrine\Persistence\ManagerRegistry;
@@ -55,6 +56,23 @@ class CategorieController extends AbstractController
 
         $entityManager = $doctrine->getManager();
         $entityManager->remove($categorie);
+        
+           // Supprimer tous les modules associés
+    
+           foreach ($categorie->getModules() as $module) { // Supprimer tous les modules associés
+            $categorie->removeModule($module);
+            $entityManager->remove($module);
+
+            if($module){ // Supprimer tous les programmes s'il  y a des modules associés
+            foreach( $module->getProgrammes() as $programme ) { // Supprimer tous les programmes associés
+                $module->removeProgramme($programme);
+                $entityManager->remove($programme);
+            }
+         }
+           
+        }
+
+       
         $entityManager->flush();
 
         return $this->redirectToRoute('app_categorie');

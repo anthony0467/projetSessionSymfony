@@ -54,7 +54,18 @@ class FormateurController extends AbstractController
     #[Route('/formateur/delete/{id}', name: 'delete_formateur')] // supprimer le formateur
     public function delete(ManagerRegistry $doctrine, Formateur $formateur): Response{
 
+     
         $entityManager = $doctrine->getManager();
+        
+
+           // Supprimer toutes les sessions associées
+    
+        foreach ($formateur->getSessions() as $session) {
+        $formateur->removeSession($session);
+        $entityManager->remove($session);
+    }
+
+
         $entityManager->remove($formateur);
         $entityManager->flush();
 
