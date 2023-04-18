@@ -27,6 +27,12 @@
 
         <h2>Stagiaire inscrit :</h2>
 
+        {% if session.stagiaires | length == 0 %}
+
+        <p class="color-white">Pas de stagiaire inscrit dans cette session.</p>
+            
+        {% else %}
+
         <table>
             <thead>
                 <tr class="title-table">
@@ -54,6 +60,8 @@
             
             </tbody>
         </table>
+
+        {% endif %}
 
     </div>
 
@@ -103,6 +111,12 @@
 
         <h2>Programme :</h2>
 
+        {% if session.programmes| length == 0 %}
+
+        <p class="color-white">Pas de module programmé pour la session.</p>
+            
+        {% else %}
+
         <table>
             <thead>
                 <tr class="title-table">
@@ -141,6 +155,8 @@
             
             </tbody>
         </table>
+
+        {% endif %} 
     </div>
 
     <div>
