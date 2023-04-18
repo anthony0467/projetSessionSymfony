@@ -17,6 +17,11 @@
 
 <h2>Sessions :</h2>
 
+{% if stagiaire.sessions | length == 0 %}
+
+        <p class="color-white">Pas de sessions en cours </p>
+
+        {% else %}
 
 <table>
     <thead>
@@ -28,16 +33,23 @@
         </tr>
     </thead>
     <tbody>
-            {% for session in stagiaire.sessions %}
+        
+        
+            
+        
 
+            {% for session in stagiaire.sessions %}
+                
+                    
+                
              <tr>
                 <td> {{session.nomSession}} </td>
                 <td> {{session.dateDebut |date('d/m/Y')}} </td>
                 <td> {{session.dateFin |date('d/m/Y')}} </td>
             </tr>
-             
+        
             {% endfor %}
-
+            {% endif %}
 
             
       

@@ -14,6 +14,12 @@
 
 <h2>Référent des sessions suivante :</h2>
 
+{% if formateur.sessions | length == 0 %}
+
+        <p class="color-white">Pas de sessions en cours </p>
+
+        {% else %}
+
 
 <table>
     <thead>
@@ -43,5 +49,7 @@
     </tbody>
 </table>
 
+
+{% endif %}
 
 {% endblock %}

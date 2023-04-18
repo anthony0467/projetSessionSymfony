@@ -107,7 +107,7 @@ public function sessionActuel()
         ->from(Session::class, 's')
         ->where(':dateActuelle BETWEEN s.dateDebut AND s.dateFin')
         ->setParameter('dateActuelle', $dateActuelle)
-        ->orderBy('s.nomSession', 'ASC');
+        ->orderBy('s.dateDebut', 'DESC');
 
     return $query->getQuery()->getResult();
 }
@@ -124,7 +124,7 @@ public function sessionFutur()
         ->from(Session::class, 's')
         ->where(':dateActuelle < s.dateDebut')
         ->setParameter('dateActuelle', $dateActuelle)
-        ->orderBy('s.nomSession', 'ASC');
+        ->orderBy('s.dateDebut', 'DESC');
 
     return $query->getQuery()->getResult();
 }
@@ -140,7 +140,7 @@ public function sessionPassee()
         ->from(Session::class, 's')
         ->where(':dateActuelle > s.dateFin')
         ->setParameter('dateActuelle', $dateActuelle)
-        ->orderBy('s.nomSession', 'ASC');
+        ->orderBy('s.dateDebut', 'DESC');
 
     return $query->getQuery()->getResult();
 }
