@@ -19,3 +19,7 @@ Une fois le projet installé et le serveur web lancé, vous pouvez accéder au s
 ## Presentations 
 
 ![session2](https://user-images.githubusercontent.com/59957089/232815783-3f5de793-9735-4f5d-b1e6-55a212745fbd.gif)
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/59957089/232815783-3f5de793-9735-4f5d-b1e6-55a212745fbd.gif" alt="session2">
+</p>
