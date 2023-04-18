@@ -2,9 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\Module;
 use App\Entity\Session;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Session>
@@ -95,6 +96,54 @@ class SessionRepository extends ServiceEntityRepository
 }
 
 
+public function sessionActuel()
+{
+    
+    $em = $this->getEntityManager();
+    $dateActuelle = new \DateTime();
+
+    $query = $em->createQueryBuilder();
+    $query->select('s')
+        ->from(Session::class, 's')
+        ->where(':dateActuelle BETWEEN s.dateDebut AND s.dateFin')
+        ->setParameter('dateActuelle', $dateActuelle)
+        ->orderBy('s.nomSession', 'ASC');
+
+    return $query->getQuery()->getResult();
+}
+
+
+public function sessionFutur()
+{
+    
+    $em = $this->getEntityManager();
+    $dateActuelle = new \DateTime();
+
+    $query = $em->createQueryBuilder();
+    $query->select('s')
+        ->from(Session::class, 's')
+        ->where(':dateActuelle < s.dateDebut')
+        ->setParameter('dateActuelle', $dateActuelle)
+        ->orderBy('s.nomSession', 'ASC');
+
+    return $query->getQuery()->getResult();
+}
+
+public function sessionPassee()
+{
+    
+    $em = $this->getEntityManager();
+    $dateActuelle = new \DateTime();
+
+    $query = $em->createQueryBuilder();
+    $query->select('s')
+        ->from(Session::class, 's')
+        ->where(':dateActuelle > s.dateFin')
+        ->setParameter('dateActuelle', $dateActuelle)
+        ->orderBy('s.nomSession', 'ASC');
+
+    return $query->getQuery()->getResult();
+}
     
     
 

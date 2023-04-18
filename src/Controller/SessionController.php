@@ -17,41 +17,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class SessionController extends AbstractController
 {
     #[Route('/session', name: 'app_session')]
-    public function index(ManagerRegistry $doctrine): Response
+    public function index(ManagerRegistry $doctrine, SessionRepository $sr): Response
     {
        
 
-        // sessions en cours
-        $dateActuelle = new \DateTime();
-        $sessionsActuel = $doctrine->getRepository(Session::class)->createQueryBuilder('s')
-            ->where(':dateActuelle BETWEEN s.dateDebut AND s.dateFin')
-            ->setParameter('dateActuelle', $dateActuelle)
-            ->orderBy('s.nomSession', 'ASC')
-            ->getQuery()
-            ->getResult();
+        // sessions 
+        $sessionsActuel = $sr->sessionActuel(); // requete DQL
+        $sessionsFutur = $sr->sessionFutur(); // requete DQL
+        $sessionsPassees = $sr->sessionPassee(); // requete DQL
 
           
-
-        // sessions futur
-        $sessionsFutur = $doctrine->getRepository(Session::class)->createQueryBuilder('s')
-            ->where(':dateActuelle < s.dateDebut')
-            ->setParameter('dateActuelle', $dateActuelle)
-            ->orderBy('s.nomSession', 'ASC')
-            ->getQuery()
-            ->getResult();
-
-            
-
-        //sessions passées
-        $sessionsPassees = $doctrine->getRepository(Session::class)->createQueryBuilder('s')
-            ->where(':dateActuelle > s.dateFin')
-            ->setParameter('dateActuelle', $dateActuelle)
-            ->orderBy('s.nomSession', 'ASC')
-            ->getQuery()
-            ->getResult();
-        
-          
-
 
         
         return $this->render('session/index.html.twig', [

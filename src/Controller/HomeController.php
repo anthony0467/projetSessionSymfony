@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Entity\Session;
+use App\Repository\SessionRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,35 +14,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class HomeController extends AbstractController
 {
     #[Route('/home', name: 'app_home')]
-    public function index(ManagerRegistry $doctrine): Response
+    public function index(ManagerRegistry $doctrine, SessionRepository $sr): Response
     {
 
-         // sessions en cours
-         $dateActuelle = new \DateTime();
-         $sessionsActuel = $doctrine->getRepository(Session::class)->createQueryBuilder('s')
-             ->where(':dateActuelle BETWEEN s.dateDebut AND s.dateFin')
-             ->setParameter('dateActuelle', $dateActuelle)
-             ->orderBy('s.nomSession', 'ASC')
-             ->getQuery()
-             ->getResult();
- 
-         // sessions futur
-         $sessionsFutur = $doctrine->getRepository(Session::class)->createQueryBuilder('s')
-             ->where(':dateActuelle < s.dateDebut')
-             ->setParameter('dateActuelle', $dateActuelle)
-             ->orderBy('s.nomSession', 'ASC')
-             ->getQuery()
-             ->getResult();
- 
-         //sessions passées
-         $sessionsPassees = $doctrine->getRepository(Session::class)->createQueryBuilder('s')
-             ->where(':dateActuelle > s.dateFin')
-             ->setParameter('dateActuelle', $dateActuelle)
-             ->orderBy('s.nomSession', 'ASC')
-             ->getQuery()
-             ->getResult();
- 
- 
+         // sessions 
+         $sessionsActuel = $sr->sessionActuel(); // requete DQL
+         $sessionsFutur = $sr->sessionFutur(); // requete DQL
+         $sessionsPassees = $sr->sessionPassee(); // requete DQL
  
          
          return $this->render('home/index.html.twig', [
