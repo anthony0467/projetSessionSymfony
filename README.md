@@ -17,4 +17,5 @@ Ce projet Symfony est un site de formation permettant de créer des sessions de 
 Une fois le projet installé et le serveur web lancé, vous pouvez accéder au site de formation en utilisant l'URL suivante : http://localhost:8000/home
 
 ## Presentations 
-![session](https://user-images.githubusercontent.com/59957089/232814644-dd7fe26b-a7ae-45b3-b113-d5a1489b02e9.gif)
+
+![session2](https://user-images.githubusercontent.com/59957089/232815783-3f5de793-9735-4f5d-b1e6-55a212745fbd.gif)
