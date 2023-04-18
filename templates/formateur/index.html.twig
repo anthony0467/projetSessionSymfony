@@ -29,7 +29,7 @@
             <tr>
                 <td><a href="{{path('show_formateur', { 'id': formateur.id })}}">{{ formateur.nomFormateur }}</a></td>
                 <td><a href="{{path('show_formateur', { 'id': formateur.id })}}">{{ formateur.prenomFormateur }}</a></td>
-                <td><a>{{ formateur.emailFormateur }}</a></td>
+                <td>{{ formateur.emailFormateur }}</td>
                 {% if is_granted('ROLE_ADMIN') %}
                 <td><a href="{{path('edit_formateur', {'id': formateur.id })}}"><i class="fa-sharp fa-solid fa-pen-to-square fa-xl" style="color: #ffc800;"></i></a></td> 
                 <td><a href="{{path('delete_formateur', {'id': formateur.id })}}"><i class="fa-solid fa-delete-left fa-xl" style="color: #fc0303;"></i></a></td>  

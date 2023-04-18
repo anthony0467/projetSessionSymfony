@@ -5,162 +5,176 @@
 {% block body %}
 
 {% if app.user %}
-    <h2>Bonjour {{ app.user.identifiant }}</h2>
-    
+<h2>Bonjour {{ app.user.identifiant }}</h2>
+
 
 
 <h1>Liste des sessions</h1>
 
 {% if is_granted('ROLE_ADMIN') %}
-    <a class="btn" href="{{path('add_session')}}">Ajouter une session</a>    
+<a class="btn" href="{{path('add_session')}}">Ajouter une session</a>
 {% endif %}
 
-        <h2>Sessions en cours</h2>
+<h2>Sessions en cours</h2>
 
-        <table>
-            <thead>
-                <tr class="title-table">
-                    <th >Statut</th>
-                    <th >Formation</th>
-                    <th >Session</th>
-                    <th >Date début</th>
-                    <th >Date fin</th>
-                    <th >Inscrit</th>
-                    
-                
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <th>Editer</th>   
-                        <th>Supprimer</th>
-                    {% endif %}
-                </tr>
-            </thead>
-            <tbody>
-                {% if sessionsActuel is defined %}
-                    
-                
-                    {% for session in sessionsActuel %}
-                    <tr>
-                        <td>
-                        {% if session.stagiaires.count == session.nbPlace %}
-                        <p class="btn2">Complet</p> 
-                        {% endif %}
-                    </td>
-                        <td>{{ session.formation.nomFormation }}</td>        
-                        <td><a href="{{ path('show_session',{'id':session.id})}}">{{ session.nomSession }}</a></td>
-                        <td>{{session.dateDebut | date('d/m/Y')}}</td>
-                        <td>{{session.dateFin | date('d/m/Y')}}</td>
-                        <td>{{ session.stagiaires.count }}/{{ session.nbPlace}}</td>
+<table>
+    <thead>
+        <tr class="title-table">
+            <th>Statut</th>
+            <th>Formation</th>
+            <th>Session</th>
+            <th>Date début</th>
+            <th>Date fin</th>
+            <th>Inscrit</th>
 
-                
-                        {% if is_granted('ROLE_ADMIN') %}
-                        <td><a href="{{path('edit_session', {'id': session.id })}}"><i class="fa-sharp fa-solid fa-pen-to-square fa-xl" style="color: #ffc800;"></i></a></td> 
-                        <td><a href="{{path('delete_session', {'id': session.id })}}"><i class="fa-solid fa-delete-left fa-xl" style="color: #fc0303;"></i></a></td>  
-                        {% endif %}
-                        
-                    </tr>
-                    {% endfor %}  
-                    {% endif %} 
-            </tbody>
-        </table>
 
-        <h2>Sessions à venir</h2>
+            {% if is_granted('ROLE_ADMIN') %}
+            <th>Editer</th>
+            <th>Supprimer</th>
+            {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+        {% if sessionsActuel is defined %}
 
-        <table>
-            <thead>
-                <tr class="title-table">
-                    <th >Statut</th>
-                    <th >Formation</th>
-                    <th >Session</th>
-                    <th >Date début</th>
-                    <th >Date fin</th>
-                    <th >Inscrit</th>
-                    
-                
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <th>Editer</th>   
-                        <th>Supprimer</th>
-                    {% endif %}
-                </tr>
-            </thead>
-            <tbody>
-                
-                {% if sessionsFutur is defined %}
-                    
-                
-                {% for session in sessionsFutur %}
-                <tr>
-                    <td>
-                        {% if session.stagiaires.count == session.nbPlace %}
-                        <p class="btn2">Complet</p> 
-                    {% endif %}
-                    </td>
-                    <td>{{ session.formation.nomFormation }}</td>        
-                    <td><a href="{{ path('show_session',{'id':session.id})}}">{{ session.nomSession }}</a></td>
-                    <td>{{session.dateDebut | date('d/m/Y')}}</td>
-                    <td>{{session.dateFin | date('d/m/Y')}}</td>
-                    <td>{{ session.stagiaires.count }}/{{ session.nbPlace}}</td>
 
-            
-                    {% if is_granted('ROLE_ADMIN') %}
-                    <td><a href="{{path('edit_session', {'id': session.id })}}"><i class="fa-sharp fa-solid fa-pen-to-square fa-xl" style="color: #ffc800;"></i></a></td> 
-                    <td><a href="{{path('delete_session', {'id': session.id })}}"><i class="fa-solid fa-delete-left fa-xl" style="color: #fc0303;"></i></a></td>  
-                    {% endif %}
-                    
-                </tr>
-                {% endfor %}  
-                {% endif %}
-            </tbody>
-        </table>
+        {% for session in sessionsActuel %}
+        <tr>
+            {% if session.stagiaires.count == session.nbPlace %}
+            <td class="btn2">
 
-        <h2>Sessions passées</h2>
+                <p>Complet</p>
+                {% else %}
+            <td></td>
+            {% endif %}
+            </td>
+            <td>{{ session.formation.nomFormation }}</td>
+            <td><a href="{{ path('show_session',{'id':session.id})}}">{{ session.nomSession }}</a></td>
+            <td>{{session.dateDebut | date('d/m/Y')}}</td>
+            <td>{{session.dateFin | date('d/m/Y')}}</td>
+            <td>{{ session.stagiaires.count }}/{{ session.nbPlace}}</td>
 
-        <table>
-            <thead>
-                <tr class="title-table">
-                    <th >Statut</th>
-                    <th >Formation</th>
-                    <th >Session</th>
-                    <th >Date début</th>
-                    <th >Date fin</th>
-                    <th >Inscrit</th>
-                    
-                
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <th>Editer</th>   
-                        <th>Supprimer</th>
-                    {% endif %}
-                </tr>
-            </thead>
-            <tbody>
-                {% if sessionsPassees is defined %}
-                    
-                
-                    {% for session in sessionsPassees %}
-                    <tr>
-                        
-                        <td>
-                            {% if session.stagiaires.count == session.nbPlace %}
-                            <p class="btn2">Complet</p> 
-                        {% endif %}
-                        </td>
-                        <td>{{ session.formation.nomFormation }}</td>        
-                        <td><a href="{{ path('show_session',{'id':session.id})}}">{{ session.nomSession }}</a></td>
-                        <td>{{session.dateDebut | date('d/m/Y')}}</td>
-                        <td>{{session.dateFin | date('d/m/Y')}}</td>
-                        <td>{{ session.stagiaires.count }}/{{ session.nbPlace}}</td>
 
-                
-                        {% if is_granted('ROLE_ADMIN') %}
-                        <td><a href="{{path('edit_session', {'id': session.id })}}"><i class="fa-sharp fa-solid fa-pen-to-square fa-xl" style="color: #ffc800;"></i></a></td> 
-                        <td><a href="{{path('delete_session', {'id': session.id })}}"><i class="fa-solid fa-delete-left fa-xl" style="color: #fc0303;"></i></a></td>  
-                        {% endif %}
-                        
-                    </tr>
-                    {% endfor %}  
-                    {% endif %}
-            </tbody>
-        </table>
-        {% else %}
-    <h2>Merci de vous connectez pour avoir accès au contenu</h2>
+            {% if is_granted('ROLE_ADMIN') %}
+            <td><a href="{{path('edit_session', {'id': session.id })}}"><i
+                        class="fa-sharp fa-solid fa-pen-to-square fa-xl" style="color: #ffc800;"></i></a></td>
+            <td><a href="{{path('delete_session', {'id': session.id })}}"><i class="fa-solid fa-delete-left fa-xl"
+                        style="color: #fc0303;"></i></a></td>
+            {% endif %}
+
+        </tr>
+        {% endfor %}
         {% endif %}
+    </tbody>
+</table>
+
+<h2>Sessions à venir</h2>
+
+<table>
+    <thead>
+        <tr class="title-table">
+            <th>Statut</th>
+            <th>Formation</th>
+            <th>Session</th>
+            <th>Date début</th>
+            <th>Date fin</th>
+            <th>Inscrit</th>
+
+
+            {% if is_granted('ROLE_ADMIN') %}
+            <th>Editer</th>
+            <th>Supprimer</th>
+            {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+
+        {% if sessionsFutur is defined %}
+
+
+        {% for session in sessionsFutur %}
+        <tr>
+            {% if session.stagiaires.count == session.nbPlace %}
+            <td class="btn2">
+
+                <p>Complet</p>
+                {% else %}
+            <td></td>
+            {% endif %}
+            </td>
+            <td>{{ session.formation.nomFormation }}</td>
+            <td><a href="{{ path('show_session',{'id':session.id})}}">{{ session.nomSession }}</a></td>
+            <td>{{session.dateDebut | date('d/m/Y')}}</td>
+            <td>{{session.dateFin | date('d/m/Y')}}</td>
+            <td>{{ session.stagiaires.count }}/{{ session.nbPlace}}</td>
+
+
+            {% if is_granted('ROLE_ADMIN') %}
+            <td><a href="{{path('edit_session', {'id': session.id })}}"><i
+                        class="fa-sharp fa-solid fa-pen-to-square fa-xl" style="color: #ffc800;"></i></a></td>
+            <td><a href="{{path('delete_session', {'id': session.id })}}"><i class="fa-solid fa-delete-left fa-xl"
+                        style="color: #fc0303;"></i></a></td>
+            {% endif %}
+
+        </tr>
+        {% endfor %}
+        {% endif %}
+    </tbody>
+</table>
+
+<h2>Sessions passées</h2>
+
+<table>
+    <thead>
+        <tr class="title-table">
+            <th>Statut</th>
+            <th>Formation</th>
+            <th>Session</th>
+            <th>Date début</th>
+            <th>Date fin</th>
+            <th>Inscrit</th>
+
+
+            {% if is_granted('ROLE_ADMIN') %}
+            <th>Editer</th>
+            <th>Supprimer</th>
+            {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+        {% if sessionsPassees is defined %}
+
+
+        {% for session in sessionsPassees %}
+        <tr>
+            {% if session.stagiaires.count == session.nbPlace %}
+            <td class="btn2">
+
+                <p>Complet</p>
+                {% else %}
+            <td></td>
+            {% endif %}
+            </td>
+            <td>{{ session.formation.nomFormation }}</td>
+            <td><a href="{{ path('show_session',{'id':session.id})}}">{{ session.nomSession }}</a></td>
+            <td>{{session.dateDebut | date('d/m/Y')}}</td>
+            <td>{{session.dateFin | date('d/m/Y')}}</td>
+            <td>{{ session.stagiaires.count }}/{{ session.nbPlace}}</td>
+
+
+            {% if is_granted('ROLE_ADMIN') %}
+            <td><a href="{{path('edit_session', {'id': session.id })}}"><i
+                        class="fa-sharp fa-solid fa-pen-to-square fa-xl" style="color: #ffc800;"></i></a></td>
+            <td><a href="{{path('delete_session', {'id': session.id })}}"><i class="fa-solid fa-delete-left fa-xl"
+                        style="color: #fc0303;"></i></a></td>
+            {% endif %}
+
+        </tr>
+        {% endfor %}
+        {% endif %}
+    </tbody>
+</table>
+{% else %}
+<h2>Merci de vous connectez pour avoir accès au contenu</h2>
+{% endif %}
 {% endblock %}
