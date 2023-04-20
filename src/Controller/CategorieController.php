@@ -79,13 +79,18 @@ class CategorieController extends AbstractController
     }
 
     #[Route('/categorie/show/{id}', name: 'show_categorie')] // afficher modules par categorie
-    public function show(Categorie $categorie): Response
+    public function show(Categorie $categorie = null): Response
     {
-        $modules = $categorie->getModules(); // récupère les modules
-        return $this->render('categorie/show.html.twig', [
-            'categorie' => $categorie,
-            'modules' => $modules,
-        ]);
+        if($categorie){
+            $modules = $categorie->getModules(); // récupère les modules
+            return $this->render('categorie/show.html.twig', [
+                'categorie' => $categorie,
+                'modules' => $modules,
+            ]);
+        }else{
+            return $this->redirectToRoute('app_categorie');
+        }
+       
     }
 
 }

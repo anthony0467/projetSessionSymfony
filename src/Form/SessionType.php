@@ -28,14 +28,17 @@ class SessionType extends AbstractType
             ->add('dateFin', DateType::class, [
                 'widget' =>'single_text' // calendrier
             ])
-            ->add('nbPlace', IntegerType::class)
+            ->add('nbPlace', IntegerType::class, [
+                'attr' => [
+                    'min' => 0
+                ]
+            ])
             ->add('formation', EntityType::class, [
                 'class' => Formation::class,
                 'choice_label' =>'nomFormation'
             ])
             ->add('formateur', EntityType::class, [
                 'class' => Formateur::class,
-                'choice_label' =>'nomFormateur'
             ])
           //  ->add('stagiaires')
             ->add('valider', SubmitType::class)

@@ -18,55 +18,7 @@
         {% endblock %}
     </head>
     <body>
-        <nav class="none-menu-ecran">
-            <ul>
-                <li>
-                    <a href="{{path('app_home')}}">Accueil</a>
-                </li>
-                {% if app.user %} <!--Si utilisateur connecté-->
-                <li>
-                    <a href="{{path('app_formation')}}">Formation</a>
-                </li>
-
-                <li>
-                    <a href="{{path('app_session')}}">Sessions</a>
-                </li>
-
-                <li>
-                    <a href="{{path('app_stagiaire')}}">Stagiaires</a>
-                </li>
-
-                <li>
-                    <a href="{{path('app_formateur')}}">Formateurs</a>
-                </li>
-
-                <li>
-                    <a href="{{path('app_categorie')}}">Catégorie</a>
-                </li>
-            
-        
-                
-                <li>
-                    <a href="{{ path('app_logout')}}">Déconnexion</a>
-                </li>
-
-                <li>
-                    <a href="{{path('show_home')}}">Mon profil</a>
-                </li>
-                {% else %}
-                <li>
-                    <a href="{{ path('app_login')}}">Connexion</a>
-                </li>
-                {% endif %}
-
-                {% if is_granted('ROLE_ADMIN') %} <!--Si utilisateur est admin -->
-                <li>
-                    <a class="btn" href="{{path('admin_home')}}">Administration</a>
-                </li>
-                    
-                {% endif %}
-            </ul>
-    </nav>
+        {% include "layout/_navbar.html.twig" %}
 
     <!-- Simulate a smartphone / tablet -->
 

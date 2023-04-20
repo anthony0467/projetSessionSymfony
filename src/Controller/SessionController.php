@@ -67,22 +67,30 @@ class SessionController extends AbstractController
 
 
     #[Route('/session/delete/{id}', name: 'delete_session')] // supprimer la session
-    public function delete(ManagerRegistry $doctrine, Session $session): Response{
+    public function delete(ManagerRegistry $doctrine, Session $session = null): Response{
+
+        if($session){
 
         $entityManager = $doctrine->getManager();
         $entityManager->remove($session);
         $entityManager->flush();
 
         return $this->redirectToRoute('app_home');
+     }else{
+        return $this->redirectToRoute('app_home');
+     }
     }
 
 
     #[Route('/session/{idSession}/{id}/remove', name: 'remove_sessionStagiaire')] // enlever un stagiaire d'une session
-    public function remove(ManagerRegistry $doctrine, Stagiaire $stagiaire , $idSession): Response{
+    public function remove(ManagerRegistry $doctrine, Stagiaire $stagiaire = null , $idSession): Response{
 
+        $session = $doctrine->getRepository(Session::class)->find($idSession);
+
+            if($stagiaire && $session){
             $entityManager = $doctrine->getManager(); // on récupère les ressources
 
-            $session = $doctrine->getRepository(Session::class)->find($idSession);
+            
 
             // supprimer le stagiaire de la session
             $session->removeStagiaire($stagiaire);
@@ -91,14 +99,20 @@ class SessionController extends AbstractController
             $entityManager->flush();
                 
             return $this->redirectToRoute('show_session', ['id' => $idSession]);
+        }else{
+            return $this->redirectToRoute('app_home');
+        }
     }
 
     #[Route('/session/{idSession}/{id}/inscrire', name: 'inscrire_sessionStagiaire')] // ajouter un stagiaire a une session
-    public function inscrire(ManagerRegistry $doctrine, Stagiaire $stagiaire , $idSession): Response{
+    public function inscrire(ManagerRegistry $doctrine, Stagiaire $stagiaire = null , $idSession): Response{
+      
+        
+      
+        $session = $doctrine->getRepository(Session::class)->find($idSession);
 
+        if($stagiaire && $session->getNbPlace() > count($session->getStagiaires()) ){
             $entityManager = $doctrine->getManager(); // on récupère les ressources
-
-            $session = $doctrine->getRepository(Session::class)->find($idSession);
 
             // supprimer le stagiaire de la session
             $session->addStagiaire($stagiaire);
@@ -107,10 +121,20 @@ class SessionController extends AbstractController
             $entityManager->flush();
                 
             return $this->redirectToRoute('show_session', ['id' => $idSession]);
+
+        }else{
+            return $this->redirectToRoute('app_home');
+        }
+
+    
+            
     }
 
     #[Route('/session/{idSession}/{id}/addModule', name: 'addModule_session')] // programmer un module
-    public function addModule(ManagerRegistry $doctrine, Module $module, $idSession, $id): Response {
+    public function addModule(ManagerRegistry $doctrine, Module $module = null, $idSession, $id): Response {
+
+
+        if($module){
     
         $entityManager = $doctrine->getManager(); // on récupère les ressources
 
@@ -118,12 +142,13 @@ class SessionController extends AbstractController
 
             $duree = filter_input(INPUT_POST, "duree", FILTER_VALIDATE_INT);
 
-            var_dump($duree);
 
-            if($duree){
-        
+            $session = $doctrine->getRepository(Session::class)->findOneBy(['id' => $idSession]);
 
-        $session = $doctrine->getRepository(Session::class)->findOneBy(['id' => $idSession]);
+            if($duree && $session){
+                
+
+       
         $module = $doctrine->getRepository(Module::class)->findOneBy(['id' => $id]);
 
        
@@ -146,16 +171,26 @@ class SessionController extends AbstractController
     }
                 
         return $this->redirectToRoute('show_session', ['id' => $idSession]);
+        }
+        else{
+            return $this->redirectToRoute('app_home');
+        }
     }
 
 
 
     #[Route('/session/{idSession}/{id}/removeProgramme', name: 'remove_sessionProgramme')] // enlever un stagiaire d'une session
-    public function removeProgramme(ManagerRegistry $doctrine, Programme $programme , $idSession): Response{
+    public function removeProgramme(ManagerRegistry $doctrine, Programme $programme = null , $idSession): Response{
+
+        $session = $doctrine->getRepository(Session::class)->find($idSession);
+        
+            if($programme && $session){
+
+           
 
             $entityManager = $doctrine->getManager(); // on récupère les ressources
 
-            $session = $doctrine->getRepository(Session::class)->find($idSession);
+          
 
             // supprimer le stagiaire de la session
             $session->removeProgramme($programme);
@@ -164,6 +199,9 @@ class SessionController extends AbstractController
             $entityManager->flush();
                 
             return $this->redirectToRoute('show_session', ['id' => $idSession]);
+        }else{
+            return $this->redirectToRoute('app_home');
+        }
     }
 
 
@@ -171,22 +209,25 @@ class SessionController extends AbstractController
 
 
     #[Route('/session/show/{id}', name: 'show_session')] // fiche detaillé session
-    public function show(ManagerRegistry  $doctrine, Session $session, SessionRepository $sr, Request $request): Response{
+    public function show(ManagerRegistry  $doctrine, Session $session = null, SessionRepository $sr, Request $request): Response{
 
-
-        $session_id = $session->getId();
-        $nonInscrit = $sr->findNonInscrit($session_id); // requete DQL
-        $nonProgramme = $sr->findNonProgrammes($session_id); // requete DQL
-       
-
-        return $this->render('session/show.html.twig', [
-            "session" => $session,
-            "edit" => $session->getId(),
-            "nonInscrits" => $nonInscrit,
-            "nonProgrammes" => $nonProgramme
-            
-            
-        ]);
+        if($session) {
+            $session_id = $session->getId();
+            $nonInscrit = $sr->findNonInscrit($session_id); // requete DQL
+            $nonProgramme = $sr->findNonProgrammes($session_id); // requete DQL
+           
+    
+            return $this->render('session/show.html.twig', [
+                "session" => $session,
+                "edit" => $session->getId(),
+                "nonInscrits" => $nonInscrit,
+                "nonProgrammes" => $nonProgramme
+                
+                
+            ]);
+        } else {
+            return $this->redirectToRoute('app_session');
+        }
     }
 
 

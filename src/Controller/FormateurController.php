@@ -56,14 +56,13 @@ class FormateurController extends AbstractController
 
      
         $entityManager = $doctrine->getManager();
-        
 
            // Supprimer toutes les sessions associées
     
         foreach ($formateur->getSessions() as $session) {
-        $formateur->removeSession($session);
-        $entityManager->remove($session);
-    }
+            $formateur->removeSession($session);
+            $entityManager->remove($session);
+        }
 
 
         $entityManager->remove($formateur);
@@ -74,12 +73,17 @@ class FormateurController extends AbstractController
 
 
     #[Route('/formateur/show/{id}', name: 'show_formateur')] // fiche detaillé formateur
-    public function show(Formateur $formateur): Response{
+    public function show(Formateur $formateur = null): Response{
        
+        if($formateur){
+            return $this->render('formateur/show.html.twig', [
+                "formateur" => $formateur,
+                
+            ]);
+        }else{
+            return $this->redirectToRoute('app_formateur');
+        }
 
-        return $this->render('formateur/show.html.twig', [
-            "formateur" => $formateur,
-            
-        ]);
+        
     }
 }
